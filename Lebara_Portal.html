@@ -1,0 +1,469 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1.0"/>
+<title>Lebara Mobile – Operations Portal</title>
+<link href="https://fonts.googleapis.com/css2?family=DM+Serif+Display:ital@0;1&family=Plus+Jakarta+Sans:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<style>
+:root{
+  --bl:#29ABE2;--bl2:#0080C8;--bl3:#5CC8F0;--bl4:#C8EBFA;--bl5:#E8F6FD;
+  --bg:#FFFFFF;--bg2:#FAFAFA;--bg3:#F5F5F5;
+  --bdr:rgba(0,0,0,0.08);--bdr2:rgba(41,171,226,0.45);
+  --txt:#1A1A2E;--txt2:#5A6A7A;--txt3:#9AABB8;
+  --grn:#00B050;--grn2:#E6F7EE;
+  --org:#F47920;--org2:#FEF0E6;
+  --red:#E63946;--red2:#FDECEA;
+  --gld:#F4A51E;--gld2:#FEF5E6;
+  --grad:linear-gradient(135deg,#29ABE2,#0080C8);
+  --sh:0 2px 14px rgba(41,171,226,.09);
+  --sh2:0 8px 32px rgba(41,171,226,.18);
+}
+*{box-sizing:border-box;margin:0;padding:0;}
+body{font-family:"Plus Jakarta Sans",sans-serif;background:#fff;color:var(--txt);min-height:100vh;}
+::-webkit-scrollbar{width:4px;height:4px;}
+::-webkit-scrollbar-thumb{background:var(--bl);border-radius:2px;}
+
+.login-screen{position:fixed;inset:0;z-index:99999;background:linear-gradient(135deg,#E8F6FD 0%,#fff 60%,#E8F6FD 100%);display:flex;align-items:center;justify-content:center;flex-direction:column;gap:0;}
+.login-box{background:#fff;border:1px solid var(--bdr);border-radius:22px;box-shadow:0 20px 60px rgba(41,171,226,.15);padding:40px 44px;width:100%;max-width:420px;}
+.login-logo{text-align:center;margin-bottom:28px;}
+.logo-text{font-family:"DM Serif Display",serif;font-weight:900;font-size:32px;color:var(--bl);letter-spacing:-1px;}
+.logo-ar{font-size:12px;color:var(--bl);display:block;text-align:center;margin-top:2px;}
+.login-title{font-family:"DM Serif Display",serif;font-size:20px;font-weight:800;color:var(--txt);margin-bottom:4px;text-align:center;}
+.login-sub{font-size:12px;color:var(--txt2);text-align:center;margin-bottom:26px;}
+.login-field{margin-bottom:14px;}
+.login-field label{display:block;font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.07em;margin-bottom:6px;}
+.login-field input{display:block;width:100%;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:10px;padding:11px 14px;font-size:13px;font-family:inherit;color:var(--txt);outline:none;transition:border-color .18s,box-shadow .18s;}
+.login-field input:focus{border-color:var(--bl);box-shadow:0 0 0 3px rgba(41,171,226,.1);}
+.login-err{background:var(--red2);color:var(--red);border-radius:9px;padding:9px 13px;font-size:13px;font-weight:600;margin-bottom:14px;display:none;}
+.login-btn{display:block;width:100%;background:var(--grad);color:#fff;border:none;border-radius:12px;padding:13px;font-weight:700;font-size:15px;cursor:pointer;font-family:inherit;box-shadow:0 4px 14px rgba(41,171,226,.3);transition:opacity .2s;text-align:center;}
+.login-btn:hover{opacity:.88;}
+.login-sig{margin-top:22px;font-size:11px;color:var(--txt3);text-align:center;font-style:italic;}
+.login-sig span{color:var(--red);}
+.role-admin{background:#FEF5E6;color:#F4A51E;border:1px solid rgba(244,165,30,.3);}
+.role-cbdo{background:#EDE9FE;color:#7C3AED;border:1px solid rgba(124,58,237,.3);}
+.role-sales_manager{background:#CCFBF1;color:#0D9488;border:1px solid rgba(13,148,136,.3);}
+.role-salesman,.role-sales{background:var(--grn2);color:var(--grn);border:1px solid rgba(0,176,80,.3);}
+.role-view{background:var(--bl5);color:var(--bl2);border:1px solid var(--bdr2);}
+
+nav{position:sticky;top:0;z-index:200;background:rgba(255,255,255,.96);backdrop-filter:blur(20px);border-bottom:1px solid var(--bdr);box-shadow:0 1px 12px rgba(41,171,226,.07);height:64px;padding:0 28px;display:flex;align-items:center;justify-content:space-between;gap:10px;}
+.brand{display:flex;align-items:center;gap:12px;}
+.nav-sep{width:1px;height:26px;background:var(--bdr);}
+.nav-label{font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.1em;}
+.avatar{width:36px;height:36px;border-radius:50%;background:var(--grad);color:#fff;display:flex;align-items:center;justify-content:center;font-family:"DM Serif Display",serif;font-weight:800;font-size:13px;box-shadow:0 2px 10px rgba(41,171,226,.3);}
+
+.main{padding:0 28px 80px;background:linear-gradient(180deg,var(--bl5) 0%,#fff 30%);}
+.hero{text-align:center;padding:52px 20px 38px;}
+.hero-badge{display:inline-flex;align-items:center;gap:7px;background:var(--bl5);border:1px solid var(--bdr2);border-radius:20px;padding:5px 14px;font-size:12px;font-weight:700;color:var(--bl2);margin-bottom:20px;}
+.hero h1{font-family:"DM Serif Display",serif;font-size:clamp(26px,4vw,44px);font-weight:900;line-height:1.1;margin-bottom:14px;background:var(--grad);-webkit-background-clip:text;-webkit-text-fill-color:transparent;}
+.hero p{font-size:15px;color:var(--txt2);max-width:500px;margin:0 auto;}
+
+.user-bar{display:flex;align-items:center;justify-content:space-between;background:var(--bl5);border:1px solid var(--bdr2);border-radius:14px;padding:13px 18px;max-width:960px;margin:0 auto 30px;}
+.user-bar-info{display:flex;align-items:center;gap:12px;}
+.user-name{font-weight:700;font-size:14px;}
+.user-role{font-size:11px;color:var(--txt2);margin-top:1px;}
+.stats-row{display:flex;gap:12px;justify-content:center;flex-wrap:wrap;max-width:960px;margin:0 auto 36px;}
+.stat-mini{background:#fff;border:1px solid var(--bdr);border-radius:14px;padding:16px 22px;text-align:center;box-shadow:var(--sh);min-width:120px;transition:all .2s;}
+.stat-mini:hover{border-color:var(--bdr2);box-shadow:var(--sh2);transform:translateY(-2px);}
+.stat-num{font-family:"DM Serif Display",serif;font-size:22px;font-weight:800;color:var(--bl);margin-bottom:3px;}
+.stat-lbl{font-size:10px;color:var(--txt2);font-weight:700;text-transform:uppercase;letter-spacing:.07em;}
+
+.portals{display:grid;grid-template-columns:repeat(auto-fit,minmax(310px,1fr));gap:20px;max-width:960px;margin:0 auto 32px;}
+.portal-card{background:#fff;border:1.5px solid var(--bdr);border-radius:20px;padding:28px;box-shadow:var(--sh);transition:all .25s;position:relative;overflow:hidden;}
+.portal-card:hover{border-color:var(--bdr2);box-shadow:var(--sh2);transform:translateY(-4px);}
+.portal-card::after{content:"";position:absolute;bottom:0;left:0;right:0;height:3px;opacity:0;transition:opacity .25s;}
+.portal-card:hover::after{opacity:1;}
+.pc-dm::after{background:var(--grad);}
+.pc-sf::after{background:linear-gradient(90deg,#00B050,#0080C8);}
+.pc-ico{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:24px;margin-bottom:16px;box-shadow:var(--sh);}
+.pc-title{font-family:"DM Serif Display",serif;font-size:20px;font-weight:800;margin-bottom:6px;}
+.pc-desc{font-size:13px;color:var(--txt2);line-height:1.65;margin-bottom:16px;}
+.pc-features{display:flex;flex-direction:column;gap:5px;margin-bottom:20px;}
+.pc-feat{font-size:12px;color:var(--txt2);display:flex;align-items:center;gap:7px;}
+.pc-feat::before{content:"\2713";font-weight:700;color:var(--bl);font-size:11px;}
+.pc-status{display:flex;align-items:center;gap:6px;font-size:11px;font-weight:700;margin-bottom:16px;}
+.status-dot{width:7px;height:7px;border-radius:50%;}
+.pc-btn{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;padding:11px;border:none;border-radius:12px;font-weight:700;font-size:14px;cursor:pointer;font-family:inherit;transition:opacity .2s,transform .15s;}
+.pc-btn:hover{opacity:.88;transform:scale(1.02);}
+.pc-btn-dm{background:var(--grad);color:#fff;box-shadow:0 4px 14px rgba(41,171,226,.28);}
+.pc-btn-sf{background:linear-gradient(135deg,#00B050,#009040);color:#fff;box-shadow:0 4px 14px rgba(0,176,80,.25);}
+.quick-actions{max-width:960px;margin:0 auto;background:var(--bg2);border:1px solid var(--bdr);border-radius:16px;padding:20px 24px;}
+.qa-title{font-family:"DM Serif Display",serif;font-weight:700;font-size:15px;margin-bottom:14px;color:var(--txt);}
+.qa-btns{display:flex;flex-wrap:wrap;gap:9px;}
+.qa-btn{background:#fff;border:1px solid var(--bdr);border-radius:9px;padding:8px 15px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--txt2);transition:all .18s;}
+.qa-btn:hover{border-color:var(--bl);color:var(--bl);box-shadow:0 2px 8px rgba(41,171,226,.15);}
+.footer{text-align:center;padding:30px 0 16px;font-size:12px;color:var(--txt3);font-style:italic;}
+.footer span{color:var(--red);}
+.toast{position:fixed;bottom:22px;right:22px;z-index:2000;background:#fff;border:1.5px solid var(--bl);border-radius:12px;padding:11px 16px;display:flex;align-items:center;gap:8px;box-shadow:0 6px 22px rgba(41,171,226,.17);animation:slideUp .3s ease;}
+.toast-msg{font-size:13px;font-weight:600;}
+@keyframes slideUp{from{transform:translateY(20px);opacity:0}to{transform:translateY(0);opacity:1}}
+@media(max-width:640px){nav,.main{padding-left:12px;padding-right:12px;}.hero{padding:36px 10px 28px;}.portals{grid-template-columns:1fr;}.login-box{padding:32px 24px;}}
+</style>
+</head>
+<body>
+
+<div id="loginScreen" class="login-screen">
+  <div class="login-box">
+    <div class="login-logo">
+      <div class="logo-text">LEBARA</div>
+      <div class="logo-ar">&#1604;&#1610;&#1576;&#1575;&#1585;&#1575; &#1605;&#1608;&#1576;&#1575;&#1610;&#1604;</div>
+      <div style="font-size:10px;color:var(--txt3);margin-top:6px;font-weight:700;text-transform:uppercase;letter-spacing:.1em;text-align:center;">Operations Portal</div>
+    </div>
+    <div id="lp_signin">
+      <div class="login-title">Welcome Back</div>
+      <div class="login-sub">Sign in once to access all platforms</div>
+      <div class="login-err" id="signin_err"></div>
+      <div class="login-field"><label>Username</label><input type="text" id="signin_user" placeholder="Enter username" onkeydown="if(event.key==='Enter')doSignIn()"/></div>
+      <div class="login-field"><label>Password</label><input type="password" id="signin_pass" placeholder="Enter password" onkeydown="if(event.key==='Enter')doSignIn()"/></div>
+      <button class="login-btn" onclick="doSignIn()">&#128275; Sign In to Portal</button>
+    </div>
+  </div>
+  <div class="login-sig">Made with <span>&#10084;</span> by Nawaf AlDuhayan</div>
+</div>
+
+<div id="mainApp" style="display:none;">
+<nav>
+  <div class="brand">
+    <div><span class="logo-text" style="font-size:23px;">LEBARA</span><span class="logo-ar" style="font-size:10px;">&#1604;&#1610;&#1576;&#1575;&#1585;&#1575; &#1605;&#1608;&#1576;&#1575;&#1610;&#1604;</span></div>
+    <div class="nav-sep"></div>
+    <span class="nav-label">Operations Portal</span>
+    <span style="background:var(--grad);color:#fff;font-size:10px;font-weight:700;padding:3px 10px;border-radius:20px;margin-left:4px;">SSO</span>
+  </div>
+  <div style="display:flex;align-items:center;gap:10px;">
+    <div id="nav_username" style="font-size:12px;font-weight:600;color:var(--txt2);"></div>
+    <div id="nav_rolebadge" style="font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;"></div>
+    <button onclick="openPathSettings()" style="background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--txt2);cursor:pointer;font-weight:600;font-family:inherit;" title="Configure platform file paths">&#9881; Paths</button>
+    <button onclick="doSignOut()" style="background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--txt2);cursor:pointer;font-weight:600;font-family:inherit;">&#128275; Sign Out</button>
+    <div class="avatar" id="nav_avatar">?</div>
+  </div>
+</nav>
+<div class="main">
+  <div class="hero">
+    <div class="hero-badge">&#127758; All Systems Operational</div>
+    <h1>Operations Portal</h1>
+    <p>Sign in once to access all Lebara management platforms. Your session carries across every tool automatically.</p>
+  </div>
+  <div class="user-bar">
+    <div class="user-bar-info">
+      <div class="avatar" id="p_avatar">?</div>
+      <div><div class="user-name" id="p_name">Loading...</div><div class="user-role" id="p_role"></div></div>
+    </div>
+    <button onclick="doSignOut()" style="background:#fff;border:1px solid var(--bdr);border-radius:9px;padding:7px 14px;font-size:12px;font-weight:600;cursor:pointer;font-family:inherit;color:var(--txt2);">&#128275; Sign Out</button>
+  </div>
+  <div id="setupBanner" style="display:none;background:var(--gld2);border:1.5px solid var(--gld);border-radius:14px;padding:16px 20px;margin-bottom:20px;display:none;align-items:center;gap:14px;flex-wrap:wrap;">
+    <div style="font-size:22px;">&#128161;</div>
+    <div style="flex:1;min-width:200px;">
+      <div style="font-family:'DM Serif Display',serif;font-weight:800;font-size:14px;color:var(--txt);margin-bottom:3px;">First time setup — configure file paths</div>
+      <div style="font-size:12px;color:var(--txt2);">Place all 3 HTML files in the same folder, then click Configure Paths so the Launch buttons work correctly.</div>
+    </div>
+    <button onclick="openPathSettings()" style="background:var(--gld);color:#fff;border:none;border-radius:10px;padding:9px 16px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;white-space:nowrap;box-shadow:0 3px 10px rgba(244,161,30,.3);">&#9881; Configure Paths</button>
+    <button onclick="this.parentElement.style.display='none'" style="background:none;border:none;color:var(--txt3);font-size:18px;cursor:pointer;padding:0 4px;">&#10005;</button>
+  </div>
+  <div class="stats-row" id="statsRow"><div class="stat-mini"><div class="stat-num">...</div><div class="stat-lbl">Loading</div></div></div>
+  <div class="portals">
+    <div class="portal-card pc-dm">
+      <div class="pc-ico" style="background:var(--bl5);">&#128241;</div>
+      <div class="pc-status"><div class="status-dot" style="background:var(--grn);"></div><span style="color:var(--grn);">Live</span><span style="color:var(--txt3);margin-left:4px;">Firebase Synced</span></div>
+      <div class="pc-title">Device Management</div>
+      <div class="pc-desc">Manage device catalog, record sales with VAT, track instalment schedules and subsidized contracts with full analytics.</div>
+      <div class="pc-features">
+        <div class="pc-feat">Device catalog &amp; stock management</div>
+        <div class="pc-feat">Sales log with VAT (15%) calculation</div>
+        <div class="pc-feat">Instalment schedule tracking</div>
+        <div class="pc-feat">Subsidized contract &amp; ETF management</div>
+        <div class="pc-feat">Revenue analytics &amp; export</div>
+      </div>
+      <button class="pc-btn pc-btn-dm" onclick="launchApp('device')">&#128241; Open Device Management &#8594;</button>
+    </div>
+    <div class="portal-card pc-sf">
+      <div class="pc-ico" style="background:var(--grn2);">&#127919;</div>
+      <div class="pc-status"><div class="status-dot" style="background:var(--grn);"></div><span style="color:var(--grn);">Live</span><span style="color:var(--txt3);margin-left:4px;">Firebase Synced</span></div>
+      <div class="pc-title">Sales Force Management</div>
+      <div class="pc-desc">Manage sales team, track leads through Kanban pipeline, set monthly targets, log activities and analyse rep performance.</div>
+      <div class="pc-features">
+        <div class="pc-feat">Kanban pipeline (New &#8594; Won / Lost)</div>
+        <div class="pc-feat">Sales rep profiles &amp; territories</div>
+        <div class="pc-feat">Monthly targets &amp; commission calculator</div>
+        <div class="pc-feat">Activity log &mdash; calls, visits, demos</div>
+        <div class="pc-feat">Rep comparison &amp; trend reports</div>
+      </div>
+      <button class="pc-btn pc-btn-sf" onclick="launchApp('salesforce')">&#127919; Open Sales Force &#8594;</button>
+    </div>
+  </div>
+  <div class="quick-actions">
+    <div class="qa-title">&#9889; Quick Actions</div>
+    <div class="qa-btns">
+      <button class="qa-btn" onclick="launchApp('device','sales')">&#128221; New Sale</button>
+      <button class="qa-btn" onclick="launchApp('device','analytics')">&#128200; DM Analytics</button>
+      <button class="qa-btn" onclick="launchApp('device','installments')">&#128197; Instalments</button>
+      <button class="qa-btn" onclick="launchApp('salesforce','pipeline')">&#128203; SF Pipeline</button>
+      <button class="qa-btn" onclick="launchApp('salesforce','actlog')">&#128222; Log Activity</button>
+      <button class="qa-btn" onclick="launchApp('salesforce','targets')">&#127919; SF Targets</button>
+      <button class="qa-btn" onclick="launchApp('salesforce','reports')">&#128202; SF Reports</button>
+    </div>
+  </div>
+</div>
+<div class="footer">Made with <span>&#10084;</span> by Nawaf AlDuhayan</div>
+</div>
+
+<!-- PATH SETTINGS MODAL -->
+<div id="pathModal" style="display:none;position:fixed;inset:0;background:rgba(26,26,46,.55);backdrop-filter:blur(5px);z-index:5000;display:none;align-items:center;justify-content:center;padding:14px;">
+  <div style="background:#fff;border:1.5px solid var(--bdr2);border-radius:20px;padding:28px;width:100%;max-width:540px;position:relative;box-shadow:0 16px 50px rgba(41,171,226,.14);">
+    <div style="position:absolute;top:0;left:0;right:0;height:3px;background:var(--grad);border-radius:20px 20px 0 0;"></div>
+    <div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:8px;">
+      <div>
+        <div style="font-family:'DM Serif Display',serif;font-size:18px;font-weight:800;">&#9881; Platform File Paths</div>
+        <div style="font-size:12px;color:var(--txt2);margin-top:3px;">Tell the portal where to find each platform file</div>
+      </div>
+      <button onclick="closePathSettings()" style="background:var(--bg2);border:none;color:var(--txt2);width:29px;height:29px;border-radius:50%;font-size:15px;cursor:pointer;display:flex;align-items:center;justify-content:center;">&#10005;</button>
+    </div>
+
+    <!-- How it works info box -->
+    <div style="background:var(--bl5);border:1px solid var(--bdr2);border-radius:12px;padding:13px 15px;margin-bottom:18px;font-size:12px;color:var(--txt2);line-height:1.7;">
+      <strong style="color:var(--bl2);">&#128161; How it works:</strong><br>
+      All 3 files must be in the <strong>same folder</strong>. The default values below (<code style="background:rgba(41,171,226,.1);padding:1px 5px;border-radius:4px;">Lebara_Device_Management.html</code> etc.) work automatically when all files are together.<br><br>
+      Only change these if the files are in <strong>different folders</strong> — in that case paste the full path, e.g.&nbsp;<code style="background:rgba(41,171,226,.1);padding:1px 5px;border-radius:4px;">C:/Users/Nawaf/Desktop/Lebara_Device_Management.html</code>
+    </div>
+
+    <div style="display:flex;flex-direction:column;gap:14px;margin-bottom:18px;">
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:6px;">&#128230; Device Management file path / URL</label>
+        <input id="path_dm" type="text" placeholder="e.g. Lebara_Device_Management.html" style="display:block;width:100%;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:10px;padding:10px 12px;font-size:13px;font-family:inherit;color:var(--txt);outline:none;transition:border-color .18s;" onfocus="this.style.borderColor='var(--bl)'" onblur="this.style.borderColor='var(--bdr)'"/>
+      </div>
+      <div>
+        <label style="font-size:11px;font-weight:700;color:var(--txt2);text-transform:uppercase;letter-spacing:.07em;display:block;margin-bottom:6px;">&#127919; Sales Force file path / URL</label>
+        <input id="path_sf" type="text" placeholder="e.g. Lebara_SalesForce_Management.html" style="display:block;width:100%;background:var(--bg2);border:1.5px solid var(--bdr);border-radius:10px;padding:10px 12px;font-size:13px;font-family:inherit;color:var(--txt);outline:none;transition:border-color .18s;" onfocus="this.style.borderColor='var(--bl)'" onblur="this.style.borderColor='var(--bdr)'"/>
+      </div>
+    </div>
+
+    <div style="display:flex;gap:8px;justify-content:flex-end;flex-wrap:wrap;">
+      <button onclick="autoDetectPaths()" style="background:var(--bl5);color:var(--bl2);border:1px solid var(--bdr2);border-radius:10px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit;">&#128269; Auto-detect (same folder)</button>
+      <button onclick="closePathSettings()" style="background:var(--bg2);color:var(--txt2);border:1px solid var(--bdr);border-radius:10px;padding:9px 16px;font-weight:600;font-size:13px;cursor:pointer;font-family:inherit;">Cancel</button>
+      <button onclick="savePathSettings()" style="background:var(--grad);color:#fff;border:none;border-radius:10px;padding:9px 18px;font-weight:700;font-size:13px;cursor:pointer;font-family:inherit;box-shadow:0 3px 12px rgba(41,171,226,.28);">&#10003; Save Paths</button>
+    </div>
+  </div>
+</div>
+
+<script>
+var FB_URL='https://lebara-sales-default-rtdb.firebaseio.com';
+var AUTH_KEY='lebara_auth_session';
+var USERS_LS_KEY='lebara_users_local';
+var USERS_FB_KEY='lebara_users';
+var DEFAULT_ADMIN={username:'AdminNawaf',name:'Nawaf',password:'NawafAdmin@12',role:'admin',active:true,privileges:{}};
+var currentUser=null;
+
+function getUsers(cb){
+  // One-time: clear stale localStorage that may have the old admin account
+  var VK='lebara_users_v2';
+  if(!localStorage.getItem(VK)){
+    localStorage.removeItem(USERS_LS_KEY);
+    localStorage.setItem(VK,'1');
+  }
+  var local=localStorage.getItem(USERS_LS_KEY);
+  var cached=local?JSON.parse(local):[DEFAULT_ADMIN];
+  fetch(FB_URL+'/'+USERS_FB_KEY+'.json')
+    .then(function(r){return r.json();})
+    .then(function(data){
+      var users=(data&&typeof data==='object')?Object.values(data):cached;
+      // Always ensure AdminNawaf exists — remove any leftover 'admin' account
+      users=users.filter(function(u){return u.username!=='admin';});
+      if(!users.find(function(u){return u.username==='AdminNawaf';})){
+        users.unshift(DEFAULT_ADMIN);
+        // Write back to Firebase so it persists
+        saveUsers(users);
+      }
+      localStorage.setItem(USERS_LS_KEY,JSON.stringify(users));
+      cb(users);
+    }).catch(function(){
+      var fallback=cached.filter(function(u){return u.username!=='admin';});
+      if(!fallback.find(function(u){return u.username==='AdminNawaf';})) fallback.unshift(DEFAULT_ADMIN);
+      cb(fallback);
+    });
+}
+
+function doSignIn(){
+  var username=document.getElementById('signin_user').value.trim();
+  var password=document.getElementById('signin_pass').value;
+  var err=document.getElementById('signin_err');
+  err.style.display='none';
+  if(!username||!password){err.textContent='Please enter username and password.';err.style.display='block';return;}
+  getUsers(function(users){
+    var user=users.find(function(u){return u.username===username&&u.password===password;});
+    if(!user){err.textContent='Incorrect username or password.';err.style.display='block';return;}
+    if(!user.active){err.textContent='Your account is pending admin approval.';err.style.display='block';return;}
+    startSession(user);
+  });
+}
+
+function startSession(user){
+  currentUser=user;
+  localStorage.setItem(AUTH_KEY,JSON.stringify({username:user.username,ts:Date.now()}));
+  document.getElementById('loginScreen').style.display='none';
+  document.getElementById('mainApp').style.display='block';
+  document.getElementById('nav_avatar').textContent=user.name.charAt(0).toUpperCase();
+  document.getElementById('nav_username').textContent=user.name;
+  var rb=document.getElementById('nav_rolebadge');
+  var rs={admin:'background:#FEF5E6;color:#F4A51E;border:1px solid rgba(244,165,30,.3);',cbdo:'background:#EDE9FE;color:#7C3AED;border:1px solid rgba(124,58,237,.3);',sales_manager:'background:#CCFBF1;color:#0D9488;border:1px solid rgba(13,148,136,.3);',salesman:'background:var(--grn2);color:var(--grn);border:1px solid rgba(0,176,80,.3);',sales:'background:var(--grn2);color:var(--grn);border:1px solid rgba(0,176,80,.3);',view:'background:var(--bl5);color:var(--bl2);border:1px solid var(--bdr2);'};
+  rb.style.cssText=(rs[user.role]||rs.view)+'padding:2px 8px;border-radius:10px;font-size:10px;font-weight:700;';
+  var _rl={admin:'Admin',cbdo:'CBDO',sales_manager:'Sales Mgr',salesman:'Salesman',sales:'Salesman',view:'View'};rb.textContent=_rl[user.role]||(user.role?user.role.charAt(0).toUpperCase()+user.role.slice(1):'');
+  document.getElementById('p_avatar').textContent=user.name.charAt(0).toUpperCase();
+  document.getElementById('p_name').textContent=user.name;
+  document.getElementById('p_role').textContent='Role: '+(_rl[user.role]||(user.role?user.role.charAt(0).toUpperCase()+user.role.slice(1):''));
+  loadStats();
+  toast('Welcome, '+user.name+'!',true);
+  // Always reset to safe simple filenames — clears any previously broken paths
+  localStorage.setItem(PATH_KEY, JSON.stringify({
+    dm: 'Lebara_Device_Management.html',
+    sf: 'Lebara_SalesForce_Management.html'
+  }));
+  // Hide setup banner (paths are now always set correctly)
+  var banner = document.getElementById('setupBanner');
+  if(banner) banner.style.display='none';
+}
+
+function doSignOut(){
+  localStorage.removeItem(AUTH_KEY);
+  currentUser=null;
+  document.getElementById('loginScreen').style.display='flex';
+  document.getElementById('mainApp').style.display='none';
+  document.getElementById('signin_user').value='';
+  document.getElementById('signin_pass').value='';
+  var e=document.getElementById('signin_err');e.style.display='none';e.textContent='';
+}
+
+window.addEventListener('storage',function(e){
+  if(e.key===AUTH_KEY&&!e.newValue&&currentUser) doSignOut();
+});
+
+function loadStats(){
+  var sfBase=FB_URL+'/lebara_sf';
+  Promise.all([
+    fetch(sfBase+'/leads.json').then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch(sfBase+'/reps.json').then(function(r){return r.json();}).catch(function(){return null;}),
+    fetch(sfBase+'/activities.json').then(function(r){return r.json();}).catch(function(){return null;})
+  ]).then(function(results){
+    var leadsArr=results[0]&&typeof results[0]==='object'?Object.values(results[0]):[];
+    var repsArr=results[1]&&typeof results[1]==='object'?Object.values(results[1]):[];
+    var actsArr=results[2]&&typeof results[2]==='object'?Object.values(results[2]):[];
+    var wonLeads=leadsArr.filter(function(l){return l.stage==='Won';});
+    var totalRev=wonLeads.reduce(function(s,l){return s+Number(l.value||0);},0);
+    var conv=leadsArr.length?Math.round(wonLeads.length/leadsArr.length*100):0;
+    document.getElementById('statsRow').innerHTML=[
+      {n:repsArr.length,l:'Sales Reps'},
+      {n:leadsArr.length,l:'Total Leads'},
+      {n:wonLeads.length,l:'Deals Won'},
+      {n:conv+'%',l:'Conv. Rate'},
+      {n:'SAR '+Number(totalRev).toLocaleString(),l:'Revenue Won'},
+      {n:actsArr.length,l:'Activities'}
+    ].map(function(s){return '<div class="stat-mini"><div class="stat-num">'+s.n+'</div><div class="stat-lbl">'+s.l+'</div></div>';}).join('');
+  }).catch(function(){});
+}
+
+// ── FILE PATH SETTINGS ────────────────────────────────────────────────────────
+var PATH_KEY = 'lebara_portal_paths';
+
+// ── SIMPLE & RELIABLE PATH LOGIC ─────────────────────────────────────────────
+// Strategy: always store and use ONLY the filename (or full URL if on a web server).
+// For file:// usage — just the filename works because all 3 files are in the same folder.
+// For http:// usage — same folder means same base URL.
+
+function getStoredPaths(){
+  try{
+    var s = localStorage.getItem(PATH_KEY);
+    if(s){
+      var p = JSON.parse(s);
+      // Strip any accidental quotes or whitespace
+      if(p.dm) p.dm = p.dm.replace(/^["'\s]+|["'\s]+$/g,'');
+      if(p.sf) p.sf = p.sf.replace(/^["'\s]+|["'\s]+$/g,'');
+      return p;
+    }
+  }catch(e){}
+  return null;
+}
+
+function getFileUrl(app, hash){
+  var paths = getStoredPaths();
+  var filename = app==='device' ? 'Lebara_Device_Management.html' : 'Lebara_SalesForce_Management.html';
+  var raw;
+  if(paths){
+    raw = (app==='device' ? paths.dm : paths.sf) || filename;
+  } else {
+    raw = filename;
+  }
+  raw = (raw||filename).trim();
+  // Safety: if the stored value is a doubled path or garbage, fall back to filename only
+  if(raw.indexOf(raw.indexOf('file://')>-1 ? 'file://' : 'http') > 5){
+    raw = filename; // reset to safe value
+  }
+  if(hash) raw = raw.split('#')[0] + '#' + hash;
+  return raw;
+}
+
+function openPathSettings(){
+  var paths = getStoredPaths();
+  document.getElementById('path_dm').value = paths ? (paths.dm||'Lebara_Device_Management.html') : 'Lebara_Device_Management.html';
+  document.getElementById('path_sf').value = paths ? (paths.sf||'Lebara_SalesForce_Management.html') : 'Lebara_SalesForce_Management.html';
+  document.getElementById('pathModal').style.display = 'flex';
+}
+
+function closePathSettings(){
+  document.getElementById('pathModal').style.display = 'none';
+}
+
+function autoDetectPaths(){
+  // For same-folder setup, just the filename is always correct
+  document.getElementById('path_dm').value = 'Lebara_Device_Management.html';
+  document.getElementById('path_sf').value = 'Lebara_SalesForce_Management.html';
+}
+
+function savePathSettings(){
+  var dm = (document.getElementById('path_dm').value||'').replace(/^["'\s]+|["'\s]+$/g,'').trim();
+  var sf = (document.getElementById('path_sf').value||'').replace(/^["'\s]+|["'\s]+$/g,'').trim();
+  if(!dm || !sf){ toast('Both paths are required', false); return; }
+  localStorage.setItem(PATH_KEY, JSON.stringify({dm:dm, sf:sf}));
+  closePathSettings();
+  toast('Paths saved!', true);
+}
+
+function launchApp(app, page){
+  if(currentUser){
+    localStorage.setItem(AUTH_KEY, JSON.stringify({username:currentUser.username, ts:Date.now()}));
+  }
+  // Always ensure paths are set to simple filenames (clear any broken stored paths)
+  var paths = getStoredPaths();
+  if(!paths){
+    localStorage.setItem(PATH_KEY, JSON.stringify({
+      dm: 'Lebara_Device_Management.html',
+      sf: 'Lebara_SalesForce_Management.html'
+    }));
+  }
+  var url = getFileUrl(app, page);
+  var label = app==='device' ? 'Device Management' : 'Sales Force';
+  toast('Opening ' + label + '...', true);
+  setTimeout(function(){ window.open(url, '_blank'); }, 400);
+}
+
+function toast(msg,ok){
+  var t=document.createElement('div');t.className='toast';
+  t.innerHTML='<span style="font-size:16px;">'+(ok?'&#10003;':'&#10005;')+'</span><span class="toast-msg" style="color:'+(ok?'var(--grn)':'var(--red)')+'">'+msg+'</span>';
+  document.body.appendChild(t);setTimeout(function(){t.remove();},3000);
+}
+
+function tryAutoLogin(){
+  var s=localStorage.getItem(AUTH_KEY);
+  if(!s) return;
+  try{
+    var d=JSON.parse(s);
+    if(Date.now()-d.ts>12*60*60*1000){localStorage.removeItem(AUTH_KEY);return;}
+    getUsers(function(users){
+      var user=users.find(function(u){return u.username===d.username&&u.active;});
+      if(user) startSession(user);
+    });
+  }catch(e){}
+}
+
+tryAutoLogin();
+setTimeout(tryAutoLogin,800);
+</script>
+</body>
+</html>
