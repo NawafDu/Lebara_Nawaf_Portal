@@ -357,8 +357,8 @@ textarea.fi{resize:vertical;min-height:60px;}
           <div><label class="flb">Full Name *</label><input class="fi" id="nu_name" placeholder="Full name"/></div>
           <div><label class="flb">Username * <span style="font-weight:400;color:var(--txt3);">(login)</span></label><input class="fi" id="nu_user" placeholder="e.g. ahmed.rashid" style="text-transform:lowercase;"/></div>
           <div><label class="flb">Password * <span style="font-weight:400;color:var(--txt3);">(min 6)</span></label><input class="fi" type="password" id="nu_pass" placeholder="Set a password"/></div>
-          <div><label class="flb">System Role</label>
-            <select class="fi" id="nu_role" onchange="onUMRoleChange(this.value)">
+          <div><label class="flb">System Role *</label>
+            <select class="fi" id="nu_role" onchange="onUMRoleChange(this.value)" required>
               <option value="salesman">Salesman</option>
               <option value="sales_manager">Sales Manager</option>
               <option value="cbdo">CBDO</option>
@@ -389,7 +389,7 @@ textarea.fi{resize:vertical;min-height:60px;}
           <div><label class="flb">Status</label>
             <select class="fi" id="nu_status"><option>Active</option><option>Inactive</option></select>
           </div>
-          <div><label class="flb">Avatar / Initials</label><input class="fi" id="nu_avatar" placeholder="e.g. AM"/></div>
+          <div style="grid-column:1/-1;"><label class="flb">Profile Picture <span style="font-weight:400;color:var(--txt3);">(optional — will use initials if not uploaded)</span></label><div style="display:flex;align-items:center;gap:12px;margin-top:6px;"><div id="nu_avatar_preview" style="width:52px;height:52px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:&quot;DM Serif Display&quot;,serif;font-weight:800;font-size:18px;color:#fff;overflow:hidden;flex-shrink:0;">?</div><div style="flex:1;display:flex;flex-direction:column;gap:6px;"><input class="fi" id="nu_avatar" placeholder="Initials e.g. AM" oninput="updateAvatarPreview('nu')" style="width:100%;"/><input type="file" id="nu_avatar_img" accept="image/*" onchange="loadAvatarImage('nu')" style="font-size:12px;color:var(--txt2);"/></div></div></div>
           <div style="grid-column:1/-1;"><label class="flb">Notes</label><textarea class="fi" id="nu_notes" placeholder="Additional notes..." rows="2"></textarea></div>
         </div>
       </div>
@@ -439,15 +439,15 @@ textarea.fi{resize:vertical;min-height:60px;}
     <button class="tab" onclick="go('pipeline',this)"><span>&#128203;</span><span>Pipeline</span></button>
     <button class="tab" onclick="go('targets',this)"><span>&#127919;</span><span>Targets</span></button>
     <button class="tab" onclick="go('actlog',this)"><span>&#128221;</span><span>Activity Log</span></button>
-    <button class="tab" onclick="go('reports',this)"><span>&#128200;</span><span>Reports</span></button>
+    <button class="tab" onclick="go('reports',this)"><span>&#128200;</span><span>KPIs</span></button>
   </div>
   <div style="display:flex;align-items:center;gap:8px;">
-    <button onclick="goPortal()" style="background:var(--bl5);border:1px solid var(--bdr2);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--bl2);cursor:pointer;font-family:inherit;font-weight:600;">&#127968; Portal</button><button onclick="changeFirebase()" style="background:rgba(41,171,226,0.08);border:1px solid var(--bdr);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--bl);cursor:pointer;font-family:inherit;">&#128279; Sync</button>
+    <button onclick="goPortal()" style="background:var(--bl5);border:1px solid var(--bdr2);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--bl2);cursor:pointer;font-family:inherit;font-weight:600;">&#127968; Portal</button><button id="btn_sync" onclick="changeFirebase()" style="background:rgba(41,171,226,0.08);border:1px solid var(--bdr);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--bl);cursor:pointer;font-family:inherit;display:none;">&#128279; Sync</button>
     <div id="nav_username" style="font-size:12px;font-weight:600;color:var(--txt2);"></div>
     <div id="nav_rolebadge" style="font-size:10px;padding:2px 8px;border-radius:10px;font-weight:700;"></div>
     <button id="btn_usermgmt" onclick="openUM()" style="display:none;background:var(--bl5);border:1px solid var(--bdr2);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--bl2);cursor:pointer;font-weight:600;">&#128101; Users</button>
     <button onclick="doSignOut()" style="background:var(--bg2);border:1px solid var(--bdr);border-radius:8px;padding:5px 10px;font-size:11px;color:var(--txt2);cursor:pointer;font-weight:600;">&#128275; Sign Out</button>
-    <div class="avatar" id="nav_avatar">?</div>
+    <div class="avatar" id="nav_avatar" title="" style="cursor:pointer;overflow:hidden;"></div>
   </div>
 </nav>
 
@@ -481,31 +481,26 @@ textarea.fi{resize:vertical;min-height:60px;}
   <div class="stats" id="dashStats"></div>
   <div class="g2" style="margin-bottom:16px;">
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;"><div class="ct">&#128200; Monthly Revenue Pipeline</div><div style="display:flex;gap:12px;font-size:11px;font-weight:600;"><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--bl4);margin-right:4px;vertical-align:middle;"></span>Pipeline</span><span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--grad);margin-right:4px;vertical-align:middle;"></span>Won</span></div></div><div id="revenueChart" class="bchart" style="height:130px;"></div>
-    </div>
-    <div class="card">
-      <div class="ct" style="margin-bottom:14px;">🏆 Top Performers</div>
+      <div class="ct" style="margin-bottom:14px;">&#127942; Top Performers</div>
       <div id="topPerformers"></div>
     </div>
-  </div>
-  <div class="g2e" style="margin-bottom:16px;">
     <div class="card">
-      <div class="ct" style="margin-bottom:14px;">🔄 Conversion Funnel</div>
+      <div class="ct" style="margin-bottom:14px;">&#128260; Conversion Funnel</div>
       <div id="convFunnel"></div>
     </div>
+  </div>
+  <div class="g2" style="margin-bottom:16px;">
     <div class="card">
-      <div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:10px;">
-        <div class="ct">&#127919; Monthly Targets vs Actuals</div>
-        <div style="display:flex;gap:12px;font-size:11px;font-weight:600;">
-          <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--bl4);margin-right:4px;vertical-align:middle;"></span>Target</span>
-          <span><span style="display:inline-block;width:10px;height:10px;border-radius:2px;background:var(--grad);margin-right:4px;vertical-align:middle;"></span>Actual</span>
-        </div>
-      </div>
-      <div id="targetsChart" class="bchart" style="height:130px;"></div>
+      <div class="ct" style="margin-bottom:14px;">&#128222; Activity Breakdown</div>
+      <div id="dashActBreakdown"></div>
+    </div>
+    <div class="card">
+      <div class="ct" style="margin-bottom:14px;">&#127919; Product Interest</div>
+      <div id="dashProductInterest"></div>
     </div>
   </div>
   <div class="card">
-    <div class="ct" style="margin-bottom:14px;">📊 Team KPIs Overview</div>
+    <div class="ct" style="margin-bottom:14px;">&#128202; Team KPIs Overview</div>
     <div class="tw"><table id="teamKpiTable"><thead><tr><th>Representative</th><th>Role</th><th>Leads</th><th>Won</th><th>Conversion</th><th>Revenue</th><th>Target</th><th>Achievement</th></tr></thead><tbody></tbody></table></div>
   </div>
 </div>
@@ -579,6 +574,29 @@ textarea.fi{resize:vertical;min-height:60px;}
     <span class="fl">Assigned</span>
     <select class="fi" id="pipeRepFilter" onchange="renderPipeline()" style="width:auto;padding:5px 10px;font-size:12px;border-radius:16px;"></select>
   </div>
+  <!-- Year/Month filter bar -->
+  <div class="filter-bar" id="pipeline_ymfilter" style="margin-bottom:14px;flex-wrap:wrap;gap:6px;">
+    <span class="fl">Year</span>
+    <button class="fb on" onclick="setYMFilter('pipeline','year','all',this)">All</button>
+    <button class="fb" onclick="setYMFilter('pipeline','year','2024',this)">2024</button>
+    <button class="fb" onclick="setYMFilter('pipeline','year','2025',this)">2025</button>
+    <button class="fb" onclick="setYMFilter('pipeline','year','2026',this)">2026</button>
+    <div class="fsep"></div>
+    <span class="fl">Month <span style="font-weight:400;font-style:italic;font-size:10px;">(multi)</span></span>
+    <button class="fb on" onclick="toggleYMMonth('pipeline','all',this)">All</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',0,this)">Jan</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',1,this)">Feb</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',2,this)">Mar</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',3,this)">Apr</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',4,this)">May</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',5,this)">Jun</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',6,this)">Jul</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',7,this)">Aug</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',8,this)">Sep</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',9,this)">Oct</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',10,this)">Nov</button>
+    <button class="fb" onclick="toggleYMMonth('pipeline',11,this)">Dec</button>
+  </div>
   <div id="pipelineStats" class="stats"></div>
   <div class="kanban" id="kanbanBoard"></div>
 </div>
@@ -598,6 +616,29 @@ textarea.fi{resize:vertical;min-height:60px;}
       </div>
       <button class="btn-p" id="addTargetBtn" onclick="openTarget()">+ Set Target</button>
     </div>
+  </div>
+  <!-- Year/Month filter bar -->
+  <div class="filter-bar" id="targets_ymfilter" style="margin-bottom:14px;flex-wrap:wrap;gap:6px;">
+    <span class="fl">Year</span>
+    <button class="fb on" onclick="setYMFilter('targets','year','all',this)">All</button>
+    <button class="fb" onclick="setYMFilter('targets','year','2024',this)">2024</button>
+    <button class="fb" onclick="setYMFilter('targets','year','2025',this)">2025</button>
+    <button class="fb" onclick="setYMFilter('targets','year','2026',this)">2026</button>
+    <div class="fsep"></div>
+    <span class="fl">Month <span style="font-weight:400;font-style:italic;font-size:10px;">(multi)</span></span>
+    <button class="fb on" onclick="toggleYMMonth('targets','all',this)">All</button>
+    <button class="fb" onclick="toggleYMMonth('targets',0,this)">Jan</button>
+    <button class="fb" onclick="toggleYMMonth('targets',1,this)">Feb</button>
+    <button class="fb" onclick="toggleYMMonth('targets',2,this)">Mar</button>
+    <button class="fb" onclick="toggleYMMonth('targets',3,this)">Apr</button>
+    <button class="fb" onclick="toggleYMMonth('targets',4,this)">May</button>
+    <button class="fb" onclick="toggleYMMonth('targets',5,this)">Jun</button>
+    <button class="fb" onclick="toggleYMMonth('targets',6,this)">Jul</button>
+    <button class="fb" onclick="toggleYMMonth('targets',7,this)">Aug</button>
+    <button class="fb" onclick="toggleYMMonth('targets',8,this)">Sep</button>
+    <button class="fb" onclick="toggleYMMonth('targets',9,this)">Oct</button>
+    <button class="fb" onclick="toggleYMMonth('targets',10,this)">Nov</button>
+    <button class="fb" onclick="toggleYMMonth('targets',11,this)">Dec</button>
   </div>
   <div class="filter-bar">
     <span class="fl">Period</span>
@@ -630,6 +671,29 @@ textarea.fi{resize:vertical;min-height:60px;}
       <button class="btn-p" id="addActBtn" onclick="openAct()">+ Log Activity</button>
     </div>
   </div>
+  <!-- Year/Month filter bar -->
+  <div class="filter-bar" id="actlog_ymfilter" style="margin-bottom:14px;flex-wrap:wrap;gap:6px;">
+    <span class="fl">Year</span>
+    <button class="fb on" onclick="setYMFilter('actlog','year','all',this)">All</button>
+    <button class="fb" onclick="setYMFilter('actlog','year','2024',this)">2024</button>
+    <button class="fb" onclick="setYMFilter('actlog','year','2025',this)">2025</button>
+    <button class="fb" onclick="setYMFilter('actlog','year','2026',this)">2026</button>
+    <div class="fsep"></div>
+    <span class="fl">Month <span style="font-weight:400;font-style:italic;font-size:10px;">(multi)</span></span>
+    <button class="fb on" onclick="toggleYMMonth('actlog','all',this)">All</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',0,this)">Jan</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',1,this)">Feb</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',2,this)">Mar</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',3,this)">Apr</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',4,this)">May</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',5,this)">Jun</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',6,this)">Jul</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',7,this)">Aug</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',8,this)">Sep</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',9,this)">Oct</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',10,this)">Nov</button>
+    <button class="fb" onclick="toggleYMMonth('actlog',11,this)">Dec</button>
+  </div>
   <div class="filter-bar">
     <span class="fl">Type</span>
     <button class="fb on" onclick="setActFilter('type','All',this)">All</button>
@@ -651,7 +715,7 @@ textarea.fi{resize:vertical;min-height:60px;}
 <!-- REPORTS -->
 <div id="p-reports" style="display:none;">
   <div class="sh2">
-    <div><h2>&#128200; Reports</h2><p>Conversion, rep comparison, trends</p></div>
+    <div><h2>&#128200; KPIs</h2><p>Conversion, rep comparison, trends</p></div>
     <div style="display:flex;gap:8px;">
       <div class="exp-wrap">
         <button class="btn-g" onclick="toggleExp('expReports')" style="display:flex;align-items:center;gap:6px;font-size:12px;">📁 Export <span style="font-size:10px;">▾</span></button>
@@ -787,7 +851,7 @@ textarea.fi{resize:vertical;min-height:60px;}
         <div class="fgr"><label class="flb">Status</label>
           <select class="fi" id="rep_status"><option>Active</option><option>Inactive</option></select>
         </div>
-        <div class="fgr"><label class="flb">Avatar / Initials</label><input class="fi" id="rep_avatar" placeholder="e.g. AM"/></div>
+        <div class="fgr" style="grid-column:1/-1;"><label class="flb">Profile Picture <span style="font-weight:400;color:var(--txt3);">(optional)</span></label><div style="display:flex;align-items:center;gap:12px;margin-top:6px;"><div id="rep_avatar_preview" style="width:52px;height:52px;border-radius:50%;background:var(--grad);display:flex;align-items:center;justify-content:center;font-family:&quot;DM Serif Display&quot;,serif;font-weight:800;font-size:18px;color:#fff;overflow:hidden;flex-shrink:0;">?</div><div style="flex:1;display:flex;flex-direction:column;gap:6px;"><input class="fi" id="rep_avatar" placeholder="Initials e.g. AM" oninput="updateAvatarPreview('rep')" style="width:100%;"/><input type="file" id="rep_avatar_img" accept="image/*" onchange="loadAvatarImage('rep')" style="font-size:12px;color:var(--txt2);"/></div></div></div>
         <div class="fgr full"><label class="flb">Notes</label><textarea class="fi" id="rep_notes" placeholder="Additional notes about this team member..." rows="2"></textarea></div>
       </div>
     </div>
@@ -926,7 +990,8 @@ textarea.fi{resize:vertical;min-height:60px;}
       <div class="fgr"><label class="flb">Type *</label>
         <select class="fi" id="act_type"><option>Call</option><option>Visit</option><option>Email</option><option>Demo</option><option>Meeting</option></select>
       </div>
-      <div class="fgr"><label class="flb">Date *</label><input class="fi" id="act_date" type="date"/></div>
+      <div class="fgr"><label class="flb">Activity Date *</label><input class="fi" id="act_date" type="date"/></div>
+      <div class="fgr"><label class="flb">Due Date</label><input class="fi" id="act_due_date" type="date" placeholder="Optional due date"/></div>
       <div class="fgr"><label class="flb">Rep *</label>
         <select class="fi" id="act_rep"><option value="">Select rep...</option></select>
       </div>
@@ -1081,14 +1146,27 @@ function startSession(user){
   localStorage.setItem(AUTH_KEY,JSON.stringify({username:user.username,ts:Date.now()}));
   document.getElementById('loginScreen').style.display='none';
   document.getElementById('mainApp').style.display='block';
-  document.getElementById('nav_avatar').textContent=user.name.charAt(0).toUpperCase();
+  var navAv=document.getElementById('nav_avatar');
+  if(navAv){
+    navAv.title=user.name+' (@'+user.username+')';
+    if(user.avatarImg){
+      navAv.innerHTML='<img src="'+user.avatarImg+'" style="width:100%;height:100%;object-fit:cover;border-radius:50%;"/>';
+    } else {
+      // Show first name (up to 8 chars) or initials
+      var parts=user.name.split(' ');
+      var display=parts[0].length<=7?parts[0]:parts.map(function(w){return w[0];}).join('').slice(0,2).toUpperCase();
+      navAv.textContent=display;
+      navAv.style.fontSize=display.length>3?'9px':'13px';
+    }
+  }
   document.getElementById('nav_username').textContent=user.name;
   var rb=document.getElementById('nav_rolebadge');
   var roleStyles={admin:'background:#FEF5E6;color:#F4A51E;border:1px solid rgba(244,165,30,.3);',cbdo:'background:var(--pur2);color:var(--pur);border:1px solid rgba(124,58,237,.3);',sales_manager:'background:var(--teal2);color:var(--teal);border:1px solid rgba(13,148,136,.3);',salesman:'background:var(--grn2);color:var(--grn);border:1px solid rgba(0,176,80,.3);',sales:'background:var(--grn2);color:var(--grn);border:1px solid rgba(0,176,80,.3);',view:'background:var(--bl5);color:var(--bl2);border:1px solid var(--bdr2);'};
   rb.style.cssText=roleStyles[user.role]||roleStyles.view;
   rb.style.padding='2px 8px'; rb.style.borderRadius='10px'; rb.style.fontSize='10px'; rb.style.fontWeight='700';
   rb.textContent=user.role.charAt(0).toUpperCase()+user.role.slice(1);
-  document.getElementById('btn_usermgmt').style.display=user.role==='admin'?'':'none';
+  document.getElementById('btn_usermgmt').style.display=(user.role==='admin'||user.role==='cbdo')?'':'none';
+  var _sb=document.getElementById('btn_sync');if(_sb)_sb.style.display=user.role==='admin'?'':'none';
   applyRoleRestrictions(user.role,user.privileges);
   var hash=window.location.hash.replace('#','');
   var validPages=['dashboard','team','pipeline','targets','actlog','reports'];
@@ -1219,6 +1297,8 @@ function applyRoleRestrictions(role,privileges){
   if(!rp.export) css+='.exp-wrap{display:none!important;}';
   // User management — admin and cbdo can manage users
   if(role!=='admin'&&role!=='cbdo') css+='#btn_usermgmt{display:none!important;}';
+  // Sync button admin only
+  var syncBtn=document.getElementById('btn_sync'); if(syncBtn) syncBtn.style.display=role==='admin'?'':'none';
   style.textContent=css;
   // Store first accessible page
   authFirstPage=null;
@@ -1472,7 +1552,7 @@ function createUser(){
     if(users.find(function(u){return u.username===uname;})){toast('Username already exists — choose another',false);return;}
     var privs = readPrivsForm('nu_privs');
     // 1. Save user account
-    users.push({username:uname, name:name, password:pass, role:role, active:true, privileges:privs, reportsTo:reportsTo});
+    users.push({username:uname, name:name, password:pass, role:role, active:true, privileges:privs, reportsTo:reportsTo, avatarImg:avatarImgData});
     saveUsers(users, function(){
       // 2. Create Business Team rep profile
       var repId = 'r'+Date.now();
@@ -1480,7 +1560,7 @@ function createUser(){
         id:repId, name:name, jobTitle:jobTitle, role:jobTitle,
         email:email, phone:phone, territory:territory,
         target:target, status:status, avatar:avatar, notes:notes,
-        sysRole:role, reportsTo:reportsTo, linkedUsername:uname
+        sysRole:role, reportsTo:reportsTo, linkedUsername:uname, avatarImg:avatarImgData
       };
       fbSet('/reps/'+repId, repData, function(){
         // Clear form
@@ -1500,6 +1580,90 @@ function goPortal(){
   try{ paths = JSON.parse(localStorage.getItem('lebara_portal_paths')||'null'); }catch(e){}
   var portalUrl = paths&&paths.portal ? paths.portal : 'Lebara_Portal.html';
   window.location.href = portalUrl;
+}
+
+
+// ── UNIFIED YEAR/MONTH FILTER SYSTEM ─────────────────────────────────────────
+var _ymState = {};  // {pid: {year:'all', months:null}}
+
+function getYMState(pid){
+  if(!_ymState[pid]) _ymState[pid]={year:'all',months:null};
+  return _ymState[pid];
+}
+
+function setYMFilter(pid, type, value, btn){
+  var s=getYMState(pid);
+  if(type==='year') s.year=value;
+  document.querySelectorAll('#'+pid+'_ymfilter .fb').forEach(function(b){
+    if(b.getAttribute('onclick')&&b.getAttribute('onclick').indexOf("'year'")>=0) b.classList.remove('on');
+  });
+  if(btn) btn.classList.add('on');
+  reRenderPage(pid);
+}
+
+function toggleYMMonth(pid, month, btn){
+  var s=getYMState(pid);
+  var allBtn=document.querySelector('#'+pid+'_ymfilter .fb[data-ymall]');
+  if(month==='all'){
+    s.months=null;
+    document.querySelectorAll('#'+pid+'_ymfilter .fb').forEach(function(b){b.classList.remove('on');});
+    if(allBtn) allBtn.classList.add('on');
+  } else {
+    if(allBtn) allBtn.classList.remove('on');
+    if(!s.months) s.months=new Set();
+    if(s.months.has(month)){ s.months.delete(month); if(btn) btn.classList.remove('on'); }
+    else { s.months.add(month); if(btn) btn.classList.add('on'); }
+    if(s.months.size===0){ s.months=null; if(allBtn) allBtn.classList.add('on'); }
+  }
+  reRenderPage(pid);
+}
+
+function reRenderPage(pid){
+  if(pid==='pipeline') renderPipeline();
+  else if(pid==='targets') renderTargets();
+  else if(pid==='actlog') renderActLog();
+}
+
+function ymMatchesDate(pid, dateMs){
+  var s=getYMState(pid);
+  var d=new Date(dateMs||0);
+  if(s.year!=='all'&&d.getFullYear()!==Number(s.year)) return false;
+  if(s.months&&!s.months.has(d.getMonth())) return false;
+  return true;
+}
+
+// ── AVATAR HELPERS ────────────────────────────────────────────────────────────
+var _avatarImages = {};  // {prefix: base64 data url}
+
+function updateAvatarPreview(prefix){
+  var initials = (document.getElementById(prefix+'_avatar')||{}).value||'?';
+  var preview = document.getElementById(prefix+'_avatar_preview');
+  if(!preview) return;
+  if(_avatarImages[prefix]){
+    preview.innerHTML='<img src="'+_avatarImages[prefix]+'" style="width:100%;height:100%;object-fit:cover;"/>';
+  } else {
+    preview.textContent = initials.slice(0,2).toUpperCase()||'?';
+    preview.style.background='var(--grad)';
+  }
+}
+
+function loadAvatarImage(prefix){
+  var input=document.getElementById(prefix+'_avatar_img');
+  if(!input||!input.files||!input.files[0]) return;
+  var reader=new FileReader();
+  reader.onload=function(e){
+    _avatarImages[prefix]=e.target.result;
+    var preview=document.getElementById(prefix+'_avatar_preview');
+    if(preview) preview.innerHTML='<img src="'+e.target.result+'" style="width:100%;height:100%;object-fit:cover;"/>';
+  };
+  reader.readAsDataURL(input.files[0]);
+}
+
+function clearAvatarImage(prefix){
+  delete _avatarImages[prefix];
+  var input=document.getElementById(prefix+'_avatar_img');
+  if(input) input.value='';
+  updateAvatarPreview(prefix);
 }
 
 function tryAutoLogin(){
@@ -1753,6 +1917,25 @@ function renderDashboard(){
               '</div><div class="blb">'+m+'</div></div>';
           }).join('');
 
+          // Activity Breakdown (dashboard)
+          var typeStatsD={Call:0,Visit:0,Email:0,Demo:0,Meeting:0};
+          acts.forEach(function(a){typeStatsD[a.type]=(typeStatsD[a.type]||0)+1;});
+          var totalActsD=acts.length||1;
+          var typeClrD={Call:'var(--bl)',Visit:'var(--org)',Email:'var(--pur)',Demo:'var(--grn)',Meeting:'var(--teal)'};
+          document.getElementById('dashActBreakdown').innerHTML=Object.keys(typeStatsD).map(function(t){
+            var pct=Math.round(typeStatsD[t]/totalActsD*100);
+            return '<div style="margin-bottom:8px;"><div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:3px;"><span>'+t+'</span><span>'+typeStatsD[t]+' ('+pct+'%)</span></div><div class="pb"><div class="pf" style="width:'+pct+'%;background:'+typeClrD[t]+';"></div></div></div>';
+          }).join('');
+
+          // Product Interest (dashboard)
+          var prodMapD={};
+          leads.forEach(function(l){var p=l.product||l.device;if(p)prodMapD[p]=(prodMapD[p]||0)+1;});
+          var prodArrD=Object.entries(prodMapD).sort(function(a,b){return b[1]-a[1];}).slice(0,6);
+          var pmaxD=prodArrD.length?prodArrD[0][1]:1;
+          document.getElementById('dashProductInterest').innerHTML=prodArrD.map(function(d){
+            return '<div style="margin-bottom:7px;"><div style="display:flex;justify-content:space-between;font-size:12px;font-weight:600;margin-bottom:2px;"><span>'+h(d[0])+'</span><span>'+d[1]+'</span></div><div class="pb"><div class="pf" style="width:'+Math.round(d[1]/pmaxD*100)+'%;background:var(--bl);"></div></div></div>';
+          }).join('')||'<div style="color:var(--txt3);font-size:12px;text-align:center;padding:16px;">No data yet</div>';
+
           // Team KPI table
           var tbody=document.querySelector('#teamKpiTable tbody');
           tbody.innerHTML=reps.map(function(r){
@@ -1795,13 +1978,16 @@ function renderTeam(){
         var ach=r.target?Math.round(rrev/r.target*100):0;
         var colors=['#29ABE2','#0080C8','#00B050','#F4A51E','#7C3AED'];
         var ci=reps.indexOf(r)%colors.length;
+        var avHtml = r.avatarImg ? '<img src="'+r.avatarImg+'" style="width:100%;height:100%;object-fit:cover;"/>' : (r.avatar||r.name.charAt(0).toUpperCase());
         return '<div class="rep-card">'+
-          '<div class="rep-avatar" style="background:'+colors[ci]+';">'+r.avatar+'</div>'+
+          '<div class="rep-avatar" style="background:'+colors[ci]+';overflow:hidden;">'+avHtml+'</div>'+
           '<div class="rep-name">'+r.name+'</div>'+
           '<div class="rep-role">'+r.role+' · '+r.territory+'</div>'+
           '<span class="bdg '+(r.status==='Active'?'bg':'br')+'">'+r.status+'</span>'+
           '<div style="margin:10px 0;font-size:12px;color:var(--txt2);display:flex;flex-direction:column;gap:4px;">'+
-          '<div>📧 '+r.email+'</div><div>📞 '+r.phone+'</div></div>'+
+          '<div>&#128231; '+h(r.email)+'</div><div>&#128222; '+h(r.phone)+'</div>'+
+          (r.createdAt?'<div style="font-size:10px;color:var(--txt3);">&#128197; Joined: '+new Date(r.createdAt).toLocaleDateString()+'</div>':'')+
+          '</div>'+
           '<div style="display:flex;gap:12px;margin:10px 0;font-size:12px;">'+
           '<div><div style="color:var(--txt3);font-size:10px;text-transform:uppercase;font-weight:700;">Leads</div><div style="font-family:\'DM Serif Display\',serif;font-weight:700;">'+rleads.length+'</div></div>'+
           '<div><div style="color:var(--txt3);font-size:10px;text-transform:uppercase;font-weight:700;">Won</div><div style="font-family:\'DM Serif Display\',serif;font-weight:700;color:var(--grn)">'+rwon.length+'</div></div>'+
@@ -1950,6 +2136,7 @@ function saveRep(){
         // 2. Create rep profile linked to this user
         var repId = 'r'+Date.now();
         repData.id = repId;
+        repData.createdAt = Date.now();
         repData.linkedUsername = username;  // link rep to user account
         fbSet('/reps/'+repId, repData, function(){
           closeRep(); renderTeam();
@@ -1987,6 +2174,7 @@ function renderPipeline(){
         if(pipeFilters.priority!=='All'&&l.priority!==pipeFilters.priority) return false;
         if(pipeFilters.stage&&pipeFilters.stage!=='All'&&l.stage!==pipeFilters.stage) return false;
         if(selRep&&l.rep!==selRep) return false;
+        if(!ymMatchesDate('pipeline',l.created||0)) return false;
         if(ql&&!(l.name&&l.name.toLowerCase().includes(ql))&&
                !(l.product&&l.product.toLowerCase().includes(ql))&&
                !(l.device&&l.device.toLowerCase().includes(ql))&&
