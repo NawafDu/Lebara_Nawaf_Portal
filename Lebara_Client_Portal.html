@@ -1,0 +1,845 @@
+<!DOCTYPE html>
+<html lang="en" dir="ltr">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width,initial-scale=1,maximum-scale=1,user-scalable=no"/>
+<meta name="robots" content="noindex,nofollow"/>
+<title>Lebara Mobile — Contract Review / مراجعة العقد</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700;800;900&family=Noto+Naskh+Arabic:wght@400;500;600;700&display=swap" rel="stylesheet"/>
+<script src="https://cdnjs.cloudflare.com/ajax/libs/signature_pad/4.1.7/signature_pad.umd.min.js"></script>
+<style>
+/* ═══════════════════════════════════════════════════════════════════
+   LEBARA CLIENT PORTAL — White Document Design
+   Professional · Clean · Bilingual · Print-Ready
+═══════════════════════════════════════════════════════════════════ */
+*{box-sizing:border-box;margin:0;padding:0;}
+:root{
+  --lb-blue:#29ABE2;
+  --lb-navy:#0D2B45;
+  --lb-mid:#0080C8;
+  --grn:#059669;
+  --red:#DC2626;
+  --ink:#1E293B;
+  --ink2:#334155;
+  --ink3:#64748B;
+  --ink4:#94A3B8;
+  --border:#E2E8F0;
+  --border2:#CBD5E1;
+  --bg:#F8FAFC;
+  --bg2:#F1F5F9;
+  --font:'Inter',system-ui,sans-serif;
+  --ar:'Noto Naskh Arabic','Traditional Arabic',Arial,sans-serif;
+}
+html,body{min-height:100vh;background:var(--bg);color:var(--ink);font-family:var(--font);-webkit-font-smoothing:antialiased;}
+
+/* ── Page wrapper ── */
+.page-wrap{max-width:960px;margin:0 auto;padding:24px 16px 60px;}
+
+/* ── Top header bar ── */
+.top-header{
+  display:flex;align-items:center;justify-content:space-between;
+  background:#fff;border:1px solid var(--border);
+  border-radius:16px;padding:18px 24px;margin-bottom:16px;
+  box-shadow:0 1px 4px rgba(0,0,0,.06);
+  flex-wrap:wrap;gap:12px;
+}
+.logo-wrap img{height:44px;width:auto;display:block;}
+.header-right{text-align:right;}
+.header-right .contract-no{font-size:20px;font-weight:800;color:var(--lb-navy);}
+.header-right .contract-date{font-size:12px;color:var(--ink3);margin-top:3px;}
+.header-right .status-pill{
+  display:inline-flex;align-items:center;gap:5px;margin-top:6px;
+  background:#FEF9C3;border:1px solid #FDE047;
+  border-radius:20px;padding:3px 12px;
+  font-size:11px;font-weight:700;color:#854D0E;
+}
+
+/* ── Section heading ── */
+.sec-heading{
+  font-size:10px;font-weight:800;text-transform:uppercase;letter-spacing:.1em;
+  color:var(--lb-mid);padding:0 0 7px;margin:20px 0 12px;
+  border-bottom:2px solid var(--lb-blue);
+  display:flex;align-items:center;gap:8px;
+}
+
+/* ── Action-required banner ── */
+.action-banner{
+  display:flex;align-items:center;gap:14px;
+  padding:14px 20px;border-radius:12px;margin-bottom:16px;
+  background:#FFFBEB;border:1.5px solid #FCD34D;
+}
+.action-banner .icon{font-size:26px;flex-shrink:0;}
+.action-banner h3{font-size:14px;font-weight:700;color:#92400E;margin-bottom:3px;}
+.action-banner p{font-size:11px;color:#A16207;font-family:var(--ar);line-height:1.7;}
+.action-pill{
+  margin-left:auto;flex-shrink:0;
+  background:#F59E0B;color:#fff;
+  border-radius:8px;padding:4px 12px;
+  font-size:10px;font-weight:800;letter-spacing:.05em;
+}
+
+/* ── Summary strip ── */
+.summary-strip{
+  display:grid;grid-template-columns:repeat(auto-fit,minmax(130px,1fr));
+  gap:10px;margin-bottom:16px;
+}
+.sum-card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:12px;padding:14px 12px;text-align:center;
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+.sum-card-icon{font-size:20px;margin-bottom:5px;}
+.sum-card-val{font-size:15px;font-weight:800;color:var(--lb-navy);margin-bottom:2px;}
+.sum-card-val.blue{color:var(--lb-mid);}
+.sum-card-lbl{font-size:9px;color:var(--ink3);line-height:1.4;}
+
+/* ── Two-party section ── */
+.parties-wrap{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1.5px solid var(--lb-blue);border-radius:14px;
+  overflow:hidden;margin-bottom:16px;
+}
+.party-first{
+  background:var(--lb-navy);
+  background:linear-gradient(135deg,#0D2B45 0%,#005a8e 100%);
+  padding:20px 22px;color:#fff;
+}
+.party-second{background:#fff;padding:20px 22px;border-left:1.5px solid var(--lb-blue);}
+.party-tag{
+  display:inline-flex;align-items:center;
+  font-size:9px;font-weight:800;letter-spacing:.07em;
+  padding:3px 10px;border-radius:20px;margin-bottom:12px;
+}
+.party-tag-first{background:rgba(255,255,255,.15);color:rgba(255,255,255,.9);}
+.party-tag-second{background:linear-gradient(135deg,var(--lb-blue),var(--lb-mid));color:#fff;}
+.party-name{font-size:14px;font-weight:800;margin-bottom:2px;}
+.party-name-first{color:#fff;}
+.party-name-second{color:var(--lb-navy);}
+.party-sub{font-size:11px;margin-bottom:10px;font-family:var(--ar);}
+.party-sub-first{color:rgba(255,255,255,.6);}
+.party-sub-second{color:var(--ink3);}
+.party-hr-first{height:1px;background:rgba(255,255,255,.15);margin-bottom:10px;}
+.party-hr-second{height:1px;background:var(--border);margin-bottom:10px;}
+.party-rep-lbl{font-size:9px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;margin-bottom:4px;}
+.party-rep-lbl-first{color:rgba(255,255,255,.45);}
+.party-rep-lbl-second{color:var(--ink3);}
+.party-rep-name{font-size:13px;font-weight:700;margin-bottom:2px;}
+.party-rep-name-first{color:#fff;}
+.party-rep-name-second{color:var(--lb-navy);}
+.party-rep-role{font-size:11px;font-weight:600;}
+.party-rep-role-first{color:rgba(255,255,255,.65);}
+.party-rep-role-second{color:var(--lb-mid);}
+.party-contacts{margin-top:8px;font-size:10px;line-height:1.8;}
+.party-contacts-first{color:rgba(255,255,255,.5);}
+.party-contacts-second{color:var(--ink3);}
+
+/* ── Annex ── */
+.annex-wrap{
+  display:grid;grid-template-columns:1fr 1fr;
+  border:1px solid var(--border);border-radius:12px;
+  overflow:hidden;margin-bottom:16px;
+  background:#fff;box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+.annex-en{padding:16px 20px;border-right:1.5px solid var(--lb-blue);background:#F8FBFF;}
+.annex-ar{padding:16px 20px;direction:rtl;text-align:right;background:#F8FBFF;}
+.annex-title{font-size:13px;font-weight:800;color:var(--lb-mid);margin-bottom:10px;padding-bottom:8px;border-bottom:1.5px solid var(--lb-blue);}
+.annex-rows{display:flex;flex-direction:column;gap:5px;font-size:11px;}
+.annex-row{display:flex;justify-content:space-between;align-items:center;padding:4px 0;border-bottom:1px dashed var(--border);}
+.annex-row:last-child{border-bottom:none;border-top:2px solid var(--lb-blue);padding-top:8px;margin-top:4px;}
+.annex-row span{color:var(--ink3);}
+.annex-row strong{color:var(--lb-navy);font-weight:700;}
+.annex-total strong{color:var(--grn);font-size:14px;}
+.ar-font{font-family:var(--ar);}
+
+/* ── Schedule table ── */
+.sched-wrap{
+  margin-bottom:16px;border:1px solid var(--border);
+  border-radius:12px;overflow:hidden;background:#fff;
+  box-shadow:0 1px 3px rgba(0,0,0,.05);
+}
+.sched-wrap table{width:100%;border-collapse:collapse;font-size:11px;}
+.sched-wrap thead tr{background:linear-gradient(135deg,var(--lb-navy),var(--lb-mid));}
+.sched-wrap thead th{color:#fff;font-weight:700;padding:10px 12px;text-align:left;letter-spacing:.04em;}
+.sched-wrap tbody tr:nth-child(even){background:#F8FBFF;}
+.sched-wrap tbody td{padding:8px 12px;border-bottom:1px solid var(--border);color:var(--ink2);}
+.sched-wrap tbody tr:last-child td{border-bottom:none;}
+
+/* ── Signature section ── */
+.sig-card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;margin-bottom:16px;
+  box-shadow:0 1px 4px rgba(0,0,0,.07);
+}
+.sig-card-header{
+  background:linear-gradient(135deg,var(--lb-navy),var(--lb-mid));
+  padding:13px 22px;display:flex;align-items:center;justify-content:space-between;
+}
+.sig-card-header-title{font-size:13px;font-weight:700;color:#fff;}
+.sig-card-header-sub{font-size:10px;color:rgba(255,255,255,.65);}
+.sig-card-body{padding:20px 22px;}
+.sig-notice{
+  background:#EFF6FF;border:1px solid #BFDBFE;
+  border-radius:10px;padding:12px 16px;margin-bottom:16px;
+  font-size:12px;color:#1E40AF;
+}
+.sig-notice p:last-child{font-family:var(--ar);font-size:11px;color:#3B82F6;margin-top:4px;}
+
+/* Canvas wrap */
+.canvas-wrap{
+  background:#FAFCFF;border:2.5px solid var(--lb-blue);
+  border-radius:14px;overflow:hidden;position:relative;
+  transition:border-color .2s,box-shadow .2s;
+  box-shadow:0 2px 8px rgba(41,171,226,.1);
+}
+.canvas-wrap.has-sig{
+  border-color:var(--lb-mid);
+  box-shadow:0 0 0 3px rgba(41,171,226,.15),0 4px 16px rgba(41,171,226,.12);
+}
+.canvas-wrap.error{border-color:var(--red);animation:csShake .4s;}
+@keyframes csShake{0%,100%{transform:translateX(0)}20%{transform:translateX(-8px)}40%{transform:translateX(8px)}60%{transform:translateX(-6px)}80%{transform:translateX(4px)}}
+canvas.sig-canvas{display:block;width:100%;height:140px;cursor:crosshair;touch-action:none;-webkit-tap-highlight-color:transparent;background:transparent;}
+.sig-hint{position:absolute;inset:0;display:flex;flex-direction:column;align-items:center;justify-content:center;pointer-events:none;transition:opacity .2s;}
+.sig-hint.hidden{opacity:0;}
+.sig-hint-line{width:55%;height:1.5px;background:rgba(41,171,226,.3);margin-bottom:10px;border-radius:1px;}
+.sig-hint-en{font-size:13px;color:rgba(41,171,226,.7);font-weight:700;}
+.sig-hint-ar{font-size:11px;color:rgba(41,171,226,.5);margin-top:4px;font-family:var(--ar);}
+.canvas-toolbar{
+  display:flex;align-items:center;justify-content:space-between;
+  padding:8px 14px;background:#F0F7FF;border-top:1.5px solid rgba(41,171,226,.2);
+}
+.clear-btn{
+  font-size:11px;font-weight:700;color:var(--lb-mid);
+  background:#fff;border:1.5px solid rgba(41,171,226,.4);
+  border-radius:8px;padding:5px 14px;cursor:pointer;
+  font-family:var(--font);transition:all .15s;display:flex;align-items:center;gap:5px;
+}
+.clear-btn:hover{background:rgba(41,171,226,.07);}
+.sig-status{font-size:11px;font-weight:700;color:var(--ink4);transition:color .2s;}
+.sig-status.signed{color:var(--lb-mid);}
+.signed-badge{
+  display:none;align-items:center;gap:5px;font-size:11px;font-weight:700;
+  background:#EFF6FF;color:var(--lb-mid);
+  border:1px solid rgba(41,171,226,.3);border-radius:20px;padding:3px 10px;
+}
+
+/* ── Action buttons ── */
+.action-section{max-width:560px;margin:20px auto 0;}
+.action-section-title{text-align:center;font-size:16px;font-weight:800;color:var(--lb-navy);margin-bottom:4px;}
+.action-section-sub{text-align:center;color:var(--ink3);font-size:12px;margin-bottom:18px;font-family:var(--ar);line-height:1.7;}
+.action-btns{display:grid;grid-template-columns:1fr 1fr;gap:14px;}
+.btn-approve{
+  background:linear-gradient(135deg,#059669,#047857);
+  border:none;border-radius:14px;padding:20px 10px;
+  cursor:pointer;color:#fff;font-family:var(--font);text-align:center;
+  box-shadow:0 6px 24px rgba(5,150,105,.35);
+  transition:transform .15s,box-shadow .15s;
+}
+.btn-approve:hover{transform:translateY(-2px);box-shadow:0 10px 32px rgba(5,150,105,.45);}
+.btn-approve:active{transform:scale(.97);}
+.btn-reject{
+  background:linear-gradient(135deg,#DC2626,#B91C1C);
+  border:none;border-radius:14px;padding:20px 10px;
+  cursor:pointer;color:#fff;font-family:var(--font);text-align:center;
+  box-shadow:0 6px 24px rgba(220,38,38,.3);
+  transition:transform .15s,box-shadow .15s;
+}
+.btn-reject:hover{transform:translateY(-2px);}
+.btn-reject:active{transform:scale(.97);}
+.btn-icon{font-size:28px;margin-bottom:6px;}
+.btn-en{font-size:16px;font-weight:800;margin-bottom:3px;}
+.btn-ar{font-size:13px;font-weight:600;font-family:var(--ar);}
+.btn-note{font-size:10px;color:rgba(255,255,255,.65);margin-top:6px;}
+
+/* ── AM Sig read-only ── */
+.am-sig-card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:12px;padding:16px 20px;margin-bottom:16px;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.am-sig-label{font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.07em;color:var(--ink3);margin-bottom:10px;}
+.am-sig-img-box{background:#FAFCFF;border:1px solid var(--border);border-radius:10px;padding:8px;min-height:58px;display:flex;align-items:center;justify-content:center;}
+.am-sig-name{font-size:11px;color:var(--ink3);margin-top:8px;}
+
+/* ── Clauses ── */
+.clauses-card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:14px;overflow:hidden;margin-bottom:16px;
+  box-shadow:0 1px 3px rgba(0,0,0,.04);
+}
+.clauses-head{
+  display:grid;grid-template-columns:1fr 1fr;
+  background:linear-gradient(135deg,var(--lb-navy),var(--lb-mid));
+}
+.clauses-head div{padding:10px 16px;font-size:10px;font-weight:700;text-transform:uppercase;letter-spacing:.08em;color:rgba(255,255,255,.9);}
+.clauses-head div:first-child{border-right:1.5px solid rgba(255,255,255,.2);}
+.clause-row{display:grid;grid-template-columns:1fr 1fr;border-bottom:1px solid var(--border);}
+.clause-row:last-child{border-bottom:none;}
+.clause-en{padding:12px 16px;border-right:1.5px solid #E2EEF8;}
+.clause-ar{padding:12px 16px;direction:rtl;text-align:right;font-family:var(--ar);}
+.clause-inner{display:flex;gap:10px;align-items:flex-start;}
+.clause-inner-ar{flex-direction:row-reverse;}
+.clause-num{
+  min-width:24px;height:24px;flex-shrink:0;
+  background:linear-gradient(135deg,var(--lb-blue),var(--lb-mid));
+  color:#fff;border-radius:50%;
+  display:flex;align-items:center;justify-content:center;
+  font-weight:700;font-size:10px;
+}
+.clause-title{font-weight:700;color:var(--lb-navy);font-size:12px;margin-bottom:4px;}
+.clause-text{color:var(--ink2);font-size:11px;line-height:1.7;white-space:pre-line;}
+
+/* ── Reject overlay ── */
+.rej-overlay{
+  position:fixed;inset:0;background:rgba(15,23,42,.6);
+  backdrop-filter:blur(8px);-webkit-backdrop-filter:blur(8px);
+  display:none;align-items:center;justify-content:center;
+  z-index:9999;padding:20px;
+}
+.rej-overlay.open{display:flex;}
+.rej-box{
+  background:#fff;border-radius:20px;padding:28px;
+  width:100%;max-width:460px;
+  box-shadow:0 32px 80px rgba(0,0,0,.25);
+}
+.rej-box h3{font-size:17px;font-weight:800;color:var(--lb-navy);margin-bottom:6px;}
+.rej-box p{color:var(--ink3);font-size:12px;margin-bottom:14px;font-family:var(--ar);line-height:1.7;}
+.rej-textarea{
+  width:100%;background:#F8FAFC;
+  border:1.5px solid var(--border2);border-radius:10px;
+  color:var(--ink);padding:12px;font-size:13px;
+  font-family:var(--font);resize:vertical;min-height:90px;
+  transition:border-color .15s;
+}
+.rej-textarea:focus{outline:none;border-color:var(--lb-blue);}
+.rej-btns{display:flex;gap:10px;margin-top:14px;}
+.rej-cancel{
+  flex:1;background:#F8FAFC;border:1.5px solid var(--border2);
+  color:var(--ink);padding:11px;border-radius:10px;
+  cursor:pointer;font-weight:600;font-family:var(--font);font-size:13px;
+}
+.rej-cancel:hover{background:var(--bg2);}
+.rej-confirm{
+  flex:1;background:linear-gradient(135deg,#DC2626,#B91C1C);
+  border:none;color:#fff;padding:11px;border-radius:10px;
+  cursor:pointer;font-weight:700;font-family:var(--font);font-size:13px;
+  box-shadow:0 4px 16px rgba(220,38,38,.3);
+}
+
+/* ── Result screen ── */
+.result-screen{
+  min-height:100vh;display:flex;align-items:center;
+  justify-content:center;padding:24px;background:var(--bg);
+}
+.result-card{
+  background:#fff;border:1px solid var(--border);
+  border-radius:24px;padding:48px 36px;text-align:center;
+  max-width:520px;width:100%;
+  box-shadow:0 4px 32px rgba(0,0,0,.1);
+}
+.result-icon{font-size:60px;margin-bottom:18px;}
+.result-title{font-size:24px;font-weight:800;color:var(--lb-navy);margin-bottom:6px;}
+.result-title-ar{font-size:18px;font-weight:600;color:var(--ink3);margin-bottom:16px;font-family:var(--ar);}
+.result-msg{color:var(--ink3);font-size:13px;line-height:1.8;margin-bottom:24px;}
+.result-btns{display:flex;gap:10px;justify-content:center;flex-wrap:wrap;}
+.result-btn-outline{background:#F8FAFC;border:1.5px solid var(--border2);color:var(--ink);padding:10px 22px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:700;}
+.result-btn-primary{background:linear-gradient(135deg,var(--lb-blue),var(--lb-mid));border:none;color:#fff;padding:10px 22px;border-radius:10px;text-decoration:none;font-size:12px;font-weight:700;box-shadow:0 4px 16px rgba(41,171,226,.35);}
+.result-sig-thumb{max-width:260px;margin:0 auto 18px;background:#F8FBFF;border:1px solid var(--border);border-radius:12px;padding:12px;}
+.result-sig-thumb-label{font-size:10px;font-weight:700;color:var(--ink3);text-transform:uppercase;letter-spacing:.07em;margin-bottom:8px;}
+.result-sig-thumb img{width:100%;height:50px;object-fit:contain;background:#fff;border-radius:8px;padding:4px;display:block;}
+
+/* ── Loading ── */
+.loading-screen{min-height:100vh;display:flex;align-items:center;justify-content:center;background:var(--bg);}
+.loading-card{text-align:center;}
+.loading-spinner{width:44px;height:44px;border:3px solid rgba(41,171,226,.2);border-top-color:var(--lb-blue);border-radius:50%;animation:spin .8s linear infinite;margin:0 auto 18px;}
+@keyframes spin{to{transform:rotate(360deg);}}
+.loading-title{font-size:15px;font-weight:700;color:var(--lb-navy);margin-bottom:5px;}
+.loading-sub{font-size:12px;color:var(--ink3);font-family:var(--ar);}
+
+/* ── Footer ── */
+.portal-footer{
+  text-align:center;font-size:10px;color:var(--ink4);
+  padding:12px 0 24px;border-top:1px solid var(--border);margin-top:24px;
+}
+
+/* ── Responsive ── */
+@media(max-width:640px){
+  .parties-wrap,.annex-wrap,.action-btns,.clauses-head,.clause-row{grid-template-columns:1fr!important;}
+  .party-second{border-left:none;border-top:1.5px solid var(--lb-blue);}
+  .annex-en{border-right:none;border-bottom:1.5px solid var(--lb-blue);}
+  .clauses-head div:first-child{border-right:none;border-bottom:1px solid rgba(255,255,255,.2);}
+  .clause-en{border-right:none;border-bottom:1px solid var(--border);}
+  .top-header{flex-direction:column;align-items:flex-start;gap:8px;}
+  .header-right{text-align:left;}
+  .page-wrap{padding:12px 10px 60px;}
+  .summary-strip{grid-template-columns:repeat(2,1fr);}
+}
+</style>
+</head>
+<body>
+
+<!-- Loading screen -->
+<div class="loading-screen" id="loadingScreen">
+  <div class="loading-card">
+    <div class="loading-spinner"></div>
+    <div class="loading-title">Loading your contract…</div>
+    <div class="loading-sub">جاري تحميل العقد…</div>
+  </div>
+</div>
+
+<!-- Main portal (hidden until loaded) -->
+<div id="portalContent" style="display:none;">
+  <div class="page-wrap">
+
+    <!-- Top header with real LEBARA logo -->
+    <div class="top-header">
+      <div class="logo-wrap">
+        <img src="data:image/png;base64,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" alt="LEBARA Mobile — ليبارا موبايل"/>
+      </div>
+      <div class="header-right">
+        <div class="contract-no" id="metaContractNo">Contract #—</div>
+        <div class="contract-date" id="metaContractDate"></div>
+        <div class="status-pill" id="metaStatusPill">⏳ Pending Approval / بانتظار الموافقة</div>
+      </div>
+    </div>
+
+    <!-- Action-required banner -->
+    <div class="action-banner" id="actionBanner">
+      <div class="icon">⏳</div>
+      <div>
+        <h3>Pending Your Approval — بانتظار موافقتك</h3>
+        <p>يرجى مراجعة العقد أدناه، التوقيع في المربع المخصص، ثم اضغط "إرسال وموافقة" أو "رفض".</p>
+      </div>
+      <div class="action-pill">ACTION REQUIRED</div>
+    </div>
+
+    <!-- Summary cards -->
+    <div class="summary-strip" id="summaryStrip"></div>
+
+    <!-- Two-party header -->
+    <div class="sec-heading">Parties / أطراف العقد</div>
+    <div class="parties-wrap" id="partiesWrap"></div>
+
+    <!-- Price Annex -->
+    <div class="sec-heading">Price Annex / ملحق الأسعار</div>
+    <div id="annexContainer"></div>
+
+    <!-- AM Signature (read-only) -->
+    <div class="sec-heading">First Party Signature / توقيع الطرف الأول</div>
+    <div class="am-sig-card" id="amSigCard"></div>
+
+    <!-- Client Signature -->
+    <div class="sec-heading">Your Signature / توقيعك — الطرف الثاني</div>
+    <div class="sig-card">
+      <div class="sig-card-header">
+        <div class="sig-card-header-title">✍️ Authorized Representative Signature — توقيع المفوّض بالتوقيع</div>
+        <div class="sig-card-header-sub" id="sigRepInfo"></div>
+      </div>
+      <div class="sig-card-body">
+        <div class="sig-notice">
+          <p>Sign below using your finger or mouse, then tap <strong>"Submit &amp; Approve"</strong>. Your signature will be permanently embedded in the contract and stored securely.</p>
+          <p>وقّع أدناه باستخدام إصبعك أو الماوس، ثم اضغط <strong>"إرسال وموافقة"</strong>.</p>
+        </div>
+        <div class="canvas-wrap" id="clientSigWrap">
+          <canvas id="clientSigCanvas" class="sig-canvas"></canvas>
+          <div class="sig-hint" id="clientSigHint">
+            <div class="sig-hint-line"></div>
+            <div class="sig-hint-en">✍️ Sign here / وقّع هنا</div>
+            <div class="sig-hint-ar">استخدم إصبعك أو الماوس</div>
+          </div>
+          <div class="canvas-toolbar">
+            <button class="clear-btn" onclick="clearClientSig()">🗑 Clear / مسح</button>
+            <span class="sig-status" id="clientSigStatus">Awaiting signature…</span>
+            <div class="signed-badge" id="clientSigBadge">✓ Signed / موقّع</div>
+          </div>
+        </div>
+
+        <!-- Approve / Reject -->
+        <div class="action-section">
+          <div class="action-section-title">Your Decision / قرارك</div>
+          <div class="action-section-sub">بعد التوقيع، اضغط "إرسال وموافقة" للقبول أو "رفض" للرفض</div>
+          <div class="action-btns">
+            <button class="btn-approve" id="btnApprove" onclick="submitApproval()">
+              <div class="btn-icon">✅</div>
+              <div class="btn-en">Submit &amp; Approve</div>
+              <div class="btn-ar">إرسال وموافقة</div>
+              <div class="btn-note">Signature required / توقيع مطلوب</div>
+            </button>
+            <button class="btn-reject" id="btnReject" onclick="openReject()">
+              <div class="btn-icon">❌</div>
+              <div class="btn-en">Reject</div>
+              <div class="btn-ar">رفض العقد</div>
+              <div class="btn-note">I do not agree / لا أوافق</div>
+            </button>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Terms & Conditions -->
+    <div class="sec-heading" style="margin-top:20px;">Terms &amp; Conditions / الشروط والأحكام — 19 Clauses</div>
+    <div class="clauses-card">
+      <div class="clauses-head">
+        <div>English</div>
+        <div style="direction:rtl;text-align:right;">العربية</div>
+      </div>
+      <div id="clausesContainer"></div>
+    </div>
+
+    <!-- Footer -->
+    <div class="portal-footer">
+      Lebara Mobile &nbsp;·&nbsp; Riyadh, Kingdom of Saudi Arabia &nbsp;·&nbsp; 0576001766 &nbsp;·&nbsp; Business.Sales@lebara.sa<br/>
+      ليبارا موبايل — الرياض، المملكة العربية السعودية
+    </div>
+  </div>
+</div>
+
+<!-- Reject overlay -->
+<div class="rej-overlay" id="rejOverlay">
+  <div class="rej-box">
+    <h3>❌ Reject Contract / رفض العقد</h3>
+    <p>يرجى ذكر سبب الرفض (اختياري). سيتم إبلاغ مدير الحساب.<br/>Please provide a reason (optional).</p>
+    <textarea class="rej-textarea" id="rejReason" placeholder="Reason for rejection / سبب الرفض (optional)"></textarea>
+    <div class="rej-btns">
+      <button class="rej-cancel" onclick="closeReject()">Cancel / إلغاء</button>
+      <button class="rej-confirm" onclick="submitRejection()">Confirm Rejection / تأكيد الرفض</button>
+    </div>
+  </div>
+</div>
+
+<script>
+'use strict';
+function he(s){return String(s||'').replace(/&/g,'&amp;').replace(/</g,'&lt;').replace(/>/g,'&gt;').replace(/"/g,'&quot;');}
+function qs(id){return document.getElementById(id);}
+
+var _token=null,_data=null,_sp=null,_sig=null;
+var _FB='https://lebara-sales-default-rtdb.firebaseio.com';
+
+window.addEventListener('DOMContentLoaded',function(){
+  var p=new URLSearchParams(window.location.search);
+  _token=p.get('approve');
+  try{var u=localStorage.getItem('lebara_fb_url');if(u&&u.startsWith('https://'))_FB=u;}catch(e){}
+  if(!_token){showError('No contract token provided.','لم يتم تقديم رمز العقد.');return;}
+  fetchContract();
+});
+
+function fetchContract(){
+  var url=_FB+'/lebara/sales.json?orderBy=%22approvalToken%22&equalTo=%22'+encodeURIComponent(_token)+'%22';
+  fetch(url).then(function(r){return r.json();}).then(function(d){
+    if(d&&typeof d==='object'&&!d.error){
+      var keys=Object.keys(d);
+      for(var k=0;k<keys.length;k++){if(d[keys[k]]&&d[keys[k]].approvalToken===_token){_data=d[keys[k]];renderPortal();return;}}
+    }
+    fetchFallback();
+  }).catch(fetchFallback);
+}
+
+function fetchFallback(){
+  fetch(_FB+'/lebara/sales.json').then(function(r){return r.json();}).then(function(d){
+    if(d&&typeof d==='object'){
+      var keys=Object.keys(d);
+      for(var k=0;k<keys.length;k++){if(d[keys[k]]&&d[keys[k]].approvalToken===_token){_data=d[keys[k]];renderPortal();return;}}
+    }
+    showError('Contract not found.','لم يتم العثور على العقد.');
+  }).catch(function(){showError('Connection error.','خطأ في الاتصال.');});
+}
+
+function renderPortal(){
+  var s=_data;
+  var decided=['approved','assigned','completed','rejected'];
+  if(decided.indexOf(s.contractStatus)!==-1){renderResult(s,s.contractStatus==='rejected');return;}
+
+  qs('loadingScreen').style.display='none';
+  qs('portalContent').style.display='block';
+
+  var sub=Math.round((s.units||1)*(s.price||0));
+  var vat=Math.round(sub*0.15);
+  var total=sub+vat;
+  var plan=(s.plan&&s.plan!=='N/A')?s.plan:'';
+  var monthly=(s.pay==='Installments'&&plan)?Math.round(total/parseInt(plan)):0;
+
+  // Meta
+  qs('metaContractNo').textContent='Contract #'+s.id;
+  qs('metaContractDate').textContent=he(s.date||'');
+  if(s.rep_name)qs('sigRepInfo').textContent=he(s.rep_name)+(s.rep_pos?' — '+he(s.rep_pos):'');
+
+  // Summary
+  var cards=[
+    {icon:'📱',val:he(s.dev||''),lbl:'Device / الجهاز'},
+    {icon:'🔢',val:s.units||1,lbl:'Quantity / الكمية'},
+    {icon:'💳',val:he(s.pay||'')+(plan?' · '+he(plan):''),lbl:'Payment / الدفع'},
+    {icon:'💰',val:total.toLocaleString('en-SA')+' SAR',lbl:'Total incl. VAT / الإجمالي',blue:true},
+  ];
+  if(monthly)cards.push({icon:'📅',val:monthly.toLocaleString('en-SA')+' SAR/mo',lbl:'Monthly / شهرياً',blue:true});
+  qs('summaryStrip').innerHTML=cards.map(function(c){
+    return '<div class="sum-card"><div class="sum-card-icon">'+c.icon+'</div><div class="sum-card-val'+(c.blue?' blue':'')+'">'+c.val+'</div><div class="sum-card-lbl">'+c.lbl+'</div></div>';
+  }).join('');
+
+  // Two-party
+  qs('partiesWrap').innerHTML=
+    '<div class="party-first">'+
+      '<div class="party-tag party-tag-first">FIRST PARTY · الطرف الأول</div>'+
+      '<div class="party-name party-name-first">Lebara Telecommunications Co.</div>'+
+      '<div class="party-sub party-sub-first">شركة ليبارا للاتصالات</div>'+
+      '<div class="party-hr-first"></div>'+
+      '<div class="party-rep-lbl party-rep-lbl-first">Represented by / يمثّلها</div>'+
+      '<div class="party-rep-name party-rep-name-first">'+he(s.am_name||'Account Manager')+'</div>'+
+      '<div class="party-rep-role party-rep-role-first">Account Manager — مدير الحساب</div>'+
+      '<div class="party-contacts party-contacts-first">'+(s.am_phone?'📞 '+he(s.am_phone)+'<br/>':'')+(s.am_email?'✉ '+he(s.am_email):'')+'</div>'+
+    '</div>'+
+    '<div class="party-second">'+
+      '<div class="party-tag party-tag-second">SECOND PARTY · الطرف الثاني</div>'+
+      '<div class="party-name party-name-second">'+he(s.cust||'')+'</div>'+
+      '<div class="party-sub party-sub-second">'+(s.crn?'CR: '+he(s.crn):'')+(s.crn&&s.taxno?' · ':'')+(s.taxno?'VAT: '+he(s.taxno):'')+'</div>'+
+      '<div class="party-hr-second"></div>'+
+      '<div class="party-rep-lbl party-rep-lbl-second">Represented by / يمثّله</div>'+
+      '<div class="party-rep-name party-rep-name-second">'+he(s.rep_name||'—')+'</div>'+
+      '<div class="party-rep-role party-rep-role-second">'+he(s.rep_pos||'Authorized Representative')+'</div>'+
+      '<div class="party-contacts party-contacts-second">'+(s.email?'✉ '+he(s.email)+'<br/>':'')+(s.phone?'📞 '+he(s.phone):'')+'</div>'+
+    '</div>';
+
+  // Annex
+  var mrcHtml='',mrcArHtml='';
+  if(s.pay==='Subsidized'&&s.mrc){
+    mrcHtml='<div class="annex-row"><span>Monthly MRC</span><strong style="color:var(--lb-mid);">'+( s.mrc||0).toLocaleString('en-SA')+' SAR</strong></div>'+
+             '<div class="annex-row"><span>Commitment</span><strong>'+he(s.commit||'')+'</strong></div>';
+    mrcArHtml='<div class="annex-row"><span>الرسوم الشهرية</span><strong style="color:var(--lb-mid);">'+(s.mrc||0).toLocaleString('en-SA')+' ريال</strong></div>'+
+               '<div class="annex-row"><span>مدة الالتزام</span><strong>'+he(s.commit||'')+'</strong></div>';
+  }
+  var annexHtml=
+    '<div class="annex-wrap">'+
+      '<div class="annex-en">'+
+        '<div class="annex-title">Price Annex — '+he(s.pay)+(plan?' ('+he(plan)+')':'')+'</div>'+
+        '<div class="annex-rows">'+
+          '<div class="annex-row"><span>Device</span><strong>'+he(s.dev||'')+'</strong></div>'+
+          '<div class="annex-row"><span>Quantity</span><strong>'+(s.units||1)+'</strong></div>'+
+          '<div class="annex-row"><span>Unit Price (excl. VAT)</span><strong>'+sub.toLocaleString('en-SA')+' SAR</strong></div>'+
+          '<div class="annex-row"><span>VAT 15%</span><strong>'+vat.toLocaleString('en-SA')+' SAR</strong></div>'+
+          (monthly?'<div class="annex-row"><span>Monthly Instalment</span><strong style="color:var(--lb-mid);">'+monthly.toLocaleString('en-SA')+' SAR/mo</strong></div>':'')+
+          mrcHtml+
+          '<div class="annex-row annex-total"><span style="font-weight:700;color:var(--lb-navy);">Total (incl. VAT)</span><strong style="color:var(--grn);font-size:14px;">'+total.toLocaleString('en-SA')+' SAR</strong></div>'+
+        '</div>'+
+      '</div>'+
+      '<div class="annex-ar">'+
+        '<div class="annex-title ar-font">ملحق الأسعار — '+he(s.pay)+(plan?' ('+he(plan)+')':'')+'</div>'+
+        '<div class="annex-rows ar-font">'+
+          '<div class="annex-row"><span>الجهاز</span><strong>'+he(s.dev||'')+'</strong></div>'+
+          '<div class="annex-row"><span>الكمية</span><strong>'+(s.units||1)+'</strong></div>'+
+          '<div class="annex-row"><span>سعر الوحدة (قبل ض.ق.م)</span><strong>'+sub.toLocaleString('en-SA')+' ريال</strong></div>'+
+          '<div class="annex-row"><span>ض.ق.م 15%</span><strong>'+vat.toLocaleString('en-SA')+' ريال</strong></div>'+
+          (monthly?'<div class="annex-row"><span>القسط الشهري</span><strong style="color:var(--lb-mid);">'+monthly.toLocaleString('en-SA')+' ريال</strong></div>':'')+
+          mrcArHtml+
+          '<div class="annex-row annex-total"><span style="font-weight:700;color:var(--lb-navy);">الإجمالي (شامل ض.ق.م)</span><strong style="color:var(--grn);font-size:14px;">'+total.toLocaleString('en-SA')+' ريال</strong></div>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+
+  // Schedule table
+  if(s.pay==='Installments'&&plan){
+    var rows='',start=new Date(s.date);
+    for(var m=1;m<=parseInt(plan);m++){
+      var due=new Date(start);due.setMonth(due.getMonth()+m);
+      var bal=Math.max(0,total-monthly*m);
+      rows+='<tr><td style="text-align:center;font-weight:700;color:var(--lb-mid);">'+m+'</td><td>'+due.toLocaleDateString('en-SA',{year:'numeric',month:'2-digit',day:'2-digit'})+'</td><td style="text-align:right;font-weight:700;color:var(--lb-mid);">'+monthly.toLocaleString('en-SA')+' SAR</td><td style="text-align:right;color:var(--ink3);">'+bal.toLocaleString('en-SA')+' SAR</td></tr>';
+    }
+    annexHtml+='<div class="sched-wrap"><table><thead><tr><th>Inst. / القسط</th><th>Due Date / الاستحقاق</th><th style="text-align:right;">Amount / المبلغ</th><th style="text-align:right;">Balance / الرصيد</th></tr></thead><tbody>'+rows+'</tbody></table></div>';
+  }
+  qs('annexContainer').innerHTML=annexHtml;
+
+  // AM Sig
+  qs('amSigCard').innerHTML=
+    '<div class="am-sig-label">Account Manager — مدير الحساب · ليبارا موبايل</div>'+
+    '<div class="am-sig-img-box">'+(s.amSignature?'<img src="'+s.amSignature+'" style="height:54px;max-width:100%;object-fit:contain;" alt="AM Signature"/>':'<div style="border-bottom:1.5px solid var(--border2);height:48px;width:100%;"></div>')+'</div>'+
+    '<div class="am-sig-name">'+he(s.am_name||'Account Manager')+(s.am_email?' &nbsp;·&nbsp; '+he(s.am_email):'')+'</div>';
+
+  // Clauses
+  renderClauses();
+
+  // Init pad
+  window.addEventListener('load',function(){setTimeout(initPad,80);});
+  if(document.readyState==='complete')setTimeout(initPad,80);
+}
+
+function initPad(){
+  if(typeof SignaturePad==='undefined'){
+    var sc=document.createElement('script');
+    sc.src='https://cdnjs.cloudflare.com/ajax/libs/signature_pad/4.1.7/signature_pad.umd.min.js';
+    sc.onload=function(){setTimeout(initPad,60);};
+    document.head.appendChild(sc);return;
+  }
+  var cnv=qs('clientSigCanvas');
+  if(!cnv||!cnv.offsetWidth){setTimeout(initPad,100);return;}
+  var r=Math.max(window.devicePixelRatio||1,1);
+  cnv.width=cnv.offsetWidth*r;cnv.height=cnv.offsetHeight*r;
+  cnv.getContext('2d').scale(r,r);
+  _sp=new SignaturePad(cnv,{minWidth:.8,maxWidth:3,penColor:'rgb(0,0,128)',backgroundColor:'rgba(0,0,0,0)',velocityFilterWeight:.5,throttle:0});
+  if(window.ResizeObserver){
+    new ResizeObserver(function(){
+      if(!_sp)return;var data=_sp.toData();
+      var rr=Math.max(window.devicePixelRatio||1,1),w=cnv.offsetWidth,h=cnv.offsetHeight;
+      if(!w||!h)return;cnv.width=w*rr;cnv.height=h*rr;cnv.getContext('2d').scale(rr,rr);_sp.fromData(data);
+    }).observe(cnv);
+  }
+  _sp.addEventListener('beginStroke',function(){
+    var h=qs('clientSigHint');if(h)h.classList.add('hidden');
+    document.body.style.overflow='hidden';
+  });
+  _sp.addEventListener('endStroke',function(){
+    document.body.style.overflow='';
+    var empty=_sp.isEmpty();
+    _sig=empty?null:_sp.toDataURL('image/png');
+    updateSigUI(!empty);
+  });
+}
+
+function updateSigUI(signed){
+  var w=qs('clientSigWrap'),s=qs('clientSigStatus'),b=qs('clientSigBadge');
+  if(w)w.classList.toggle('has-sig',signed);
+  if(s){s.textContent=signed?'✓ Signed / موقّع':'Awaiting signature…';s.className='sig-status'+(signed?' signed':'');}
+  if(b)b.style.display=signed?'flex':'none';
+}
+
+function clearClientSig(){
+  if(_sp)_sp.clear();_sig=null;updateSigUI(false);
+  var h=qs('clientSigHint');if(h)h.classList.remove('hidden');
+  document.body.style.overflow='';
+}
+
+function submitApproval(){
+  if(!_sig||(_sp&&_sp.isEmpty())){
+    var w=qs('clientSigWrap');
+    if(w){w.classList.add('error');setTimeout(function(){w.classList.remove('error');},500);w.scrollIntoView({behavior:'smooth',block:'center'});}
+    return;
+  }
+  setDisabled(true);saveDecision('approved','',_sig);
+}
+
+function openReject(){qs('rejOverlay').classList.add('open');}
+function closeReject(){qs('rejOverlay').classList.remove('open');}
+
+function submitRejection(){
+  var reason=(qs('rejReason')||{value:''}).value.trim();
+  qs('rejOverlay').classList.remove('open');
+  setDisabled(true);saveDecision('rejected',reason,null);
+}
+
+function setDisabled(d){
+  ['btnApprove','btnReject'].forEach(function(id){var b=qs(id);if(b){b.disabled=d;b.style.opacity=d?'0.5':'1';}});
+}
+
+function saveDecision(status,reason,sig){
+  try{
+    var stored=JSON.parse(localStorage.getItem('lebara_sales')||'[]');
+    for(var i=0;i<stored.length;i++){
+      if(stored[i].approvalToken===_token){
+        stored[i].contractStatus=status;stored[i].clientDecision=status;
+        stored[i].clientDecisionAt=new Date().toISOString();
+        if(reason)stored[i].clientReason=reason;
+        if(sig)stored[i].clientSignature=sig;
+        break;
+      }
+    }
+    localStorage.setItem('lebara_sales',JSON.stringify(stored));
+  }catch(e){}
+
+  fetch(_FB+'/lebara/sales.json')
+    .then(function(r){return r.json();})
+    .then(function(d){
+      if(d&&typeof d==='object'){
+        var keys=Object.keys(d);
+        for(var k=0;k<keys.length;k++){
+          if(d[keys[k]]&&d[keys[k]].approvalToken===_token){
+            var patch={contractStatus:status,clientDecision:status,clientDecisionAt:new Date().toISOString()};
+            if(reason)patch.clientReason=reason;
+            if(sig)patch.clientSignature=sig;
+            fetch(_FB+'/lebara/sales/'+keys[k]+'.json',{method:'PATCH',headers:{'Content-Type':'application/json'},body:JSON.stringify(patch)}).catch(function(){});
+            break;
+          }
+        }
+      }
+      renderResult(_data,status==='rejected',reason,sig);
+    }).catch(function(){renderResult(_data,status==='rejected',reason,sig);});
+}
+
+function renderResult(s,isRej,reason,sig){
+  document.body.style.background='var(--bg)';
+  document.body.innerHTML='';
+  var st=sig||(s&&s.clientSignature)||null;
+  var sigThumb=(!isRej&&st)?'<div class="result-sig-thumb"><div class="result-sig-thumb-label">Signature / توقيع</div><img src="'+st+'" alt="Signature"/></div>':'';
+  var rejR=(isRej&&(reason||(s&&s.clientReason)))?'<div style="background:#FEF2F2;border:1px solid #FECACA;border-radius:8px;padding:10px 14px;font-size:12px;color:#991B1B;margin-bottom:16px;text-align:left;">Reason / السبب: '+he(reason||(s&&s.clientReason)||'')+'</div>':'';
+  document.body.innerHTML=
+    '<div class="result-screen">'+
+      '<div class="result-card">'+
+        '<div style="margin-bottom:18px;"><img src="data:image/png;base64,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" alt="LEBARA" style="height:38px;width:auto;"/></div>'+
+        '<div class="result-icon">'+(isRej?'❌':'✅')+'</div>'+
+        '<div class="result-title">'+(isRej?'Contract Rejected':'Contract Approved!')+'</div>'+
+        '<div class="result-title-ar">'+(isRej?'تم رفض العقد':'تمت الموافقة على العقد')+'</div>'+
+        sigThumb+rejR+
+        '<p class="result-msg">'+(isRej?'Your decision has been recorded. A Lebara representative will contact you shortly.<br/>تم تسجيل قرارك. سيتواصل معك ممثل ليبارا قريباً.':'Thank you! Your signed contract has been recorded. Our team will be in touch to arrange delivery.<br/>شكراً! تم تسجيل عقدك الموقّع.')+'</p>'+
+        '<div class="result-btns">'+
+          '<a href="mailto:Business.Sales@lebara.sa" class="result-btn-outline">📧 Email Us</a>'+
+          '<a href="tel:0576001766" class="result-btn-primary">📞 0576001766</a>'+
+        '</div>'+
+      '</div>'+
+    '</div>';
+}
+
+function showError(en,ar){
+  qs('loadingScreen').style.display='none';
+  document.body.innerHTML+='<div class="result-screen"><div class="result-card"><div style="margin-bottom:16px;"><img src="data:image/png;base64,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" alt="LEBARA" style="height:36px;width:auto;"/></div><div class="result-icon">⚠️</div><div class="result-title">Invalid Link</div><div class="result-title-ar">رابط غير صالح</div><p class="result-msg">'+he(en)+'<br/>'+he(ar)+'</p><div class="result-btns"><a href="mailto:Business.Sales@lebara.sa" class="result-btn-primary">📧 Contact Lebara</a></div></div></div>';
+}
+
+function renderClauses(){
+  var en=[
+    ['1','Scope of Contract','The Company undertakes to deliver the devices described in this Contract with their financial consideration and payment method as detailed in the Price Annex. The Client agrees to the purchase in full legal and mental capacity.'],
+    ['2','Obligations & Responsibilities','(a) Company: Provide tracking devices at the fees agreed at the start of service, after fully informing the Client of all terms, pricing, and charges. The Company may adjust prices per its policies or regulatory authority regulations.\n\n(b) Client: Provide all documents required under Communications Authority regulations. Refrain from misusing devices. Settle all financial obligations on due dates — Bank: SA5655000000099911900133 (Banque Saudi Fransi). Notify the Company of address/contact changes at least 10 days in advance.'],
+    ['3','Intellectual Property Rights','Nothing in this Contract grants either Party a licence to use the other\'s intellectual property rights. The Client acknowledges that ownership of devices, software, and operating systems belongs exclusively to the Company and undertakes to indemnify Lebara against any loss resulting from IP infringement.'],
+    ['4','Confidentiality','The Client undertakes to maintain confidentiality of all accessed information. Any disclosure — intentional or negligent — renders the Client fully liable for resulting damages. The Company undertakes to maintain confidentiality of Client information, subject to regulatory disclosure requirements.'],
+    ['5','Contract Duration','The contract term is one or two Gregorian years depending on the instalment plan selected, and concludes upon full settlement of all outstanding amounts.'],
+    ['6','Credit Information & Financial Security','The Client authorises the Company to obtain information from the Saudi Credit Bureau (SIMAH). The Company may request a financial security deposit as described in the Telecom User Rights Protection Policy.'],
+    ['7','Invoicing & Financial Obligations','The Company shall invoice amounts per the payment mechanism appended to this Contract. The Client bears VAT at 15%. Only the Company may modify prices. The Company reserves the right to conduct credit checks on the Client.'],
+    ['8','Device Suspension','The Company may suspend or cancel devices due to non-payment without liability for compensation. Suspension does not relieve the Client of the obligation to settle outstanding amounts.'],
+    ['9','Limitation of Liability','The Company shall not be liable for loss of or damage to devices caused by the Client\'s misuse.'],
+    ['10','Device Programme Terms','The Client must pay the selected device price by the agreed mechanism. The Company reserves the right to assess eligibility for device programmes at its absolute discretion. Devices carry a two-year warranty against defects.'],
+    ['11','Complaints & Escalation','The Client may submit complaints to the Account Manager within 60 days of the incident. The Client shall be notified of action taken within 5 business days. Contact: 0576001766 | Business.Sales@lebara.sa'],
+    ['12','Contract Amendment','The Company may amend this Contract by notifying the Client at least 60 days before the amendment takes effect, and by obtaining the Client\'s consent.'],
+    ['13','Contract Termination','The Contract terminates upon expiry of its term and full settlement of all amounts due.'],
+    ['14','General Provisions','The Client agrees to purchase the devices in full legal capacity. This Contract is governed by Saudi Arabian law. Disputes shall be resolved amicably within 15 days; otherwise referred to competent authorities in Riyadh.'],
+    ['15','Entire Agreement','This Contract supersedes all prior oral representations. No oral offer or arrangement shall be binding on either Party.'],
+    ['16','Severability','Each clause is severable and independent. Invalidity of any clause does not affect the enforceability of the remaining clauses.'],
+    ['17','Conflict of Interest','The Client undertakes to avoid conflicts of interest and to notify the Company immediately of any changes affecting prior disclosures.'],
+    ['18','Trademark Protection','The Client undertakes to indemnify the Company against all losses arising from actual or alleged infringement of intellectual property rights relating to the devices.'],
+    ['19','Contract Copies','This Contract has been executed in two original copies, one retained by each Party to act upon accordingly.']
+  ];
+  var ar=[
+    ['1','نطاق العقد','تلتزم الشركة بتسليم الأجهزة محل العقد والمذكورة تفاصيلها في ملحق الأسعار، ويوافق العميل على عملية الشراء وهو بكامل قواه العقلية والشرعية.'],
+    ['2','الالتزامات والمسؤوليات','أ) تلتزم الشركة: بتزويد العميل بأجهزة تتبع مقابل الأجور المطلوبة بعد إطلاعه على كافة المعلومات. يجوز للشركة تعديل الأسعار حسب أنظمتها وأنظمة الهيئة.\n\nب) يلتزم العميل: بتزويد الشركة بكافة المستندات المطلوبة. عدم إساءة استخدام الأجهزة. سداد المبالغ المستحقة — الحساب: SA5655000000099911900133. إشعار الشركة بأي تغيير قبل (10) أيام.'],
+    ['3','حقوق الملكية الفكرية','لا يمنح هذا العقد أياً من الطرفين ترخيصاً باستخدام حقوق الملكية الفكرية للطرف الآخر. يقر العميل أن ملكية الأجهزة والبرامج تعود للشركة وحدها ويلتزم بتعويض "ليبارا" عن أي خسائر.'],
+    ['4','سرية المعلومات','يتعهد العميل بالمحافظة على سرية المعلومات التي يطلع عليها. وفي حال الإفصاح يُعدّ العميل مسؤولاً مسؤولية مطلقة عن أي أضرار تلحق بالشركة.'],
+    ['5','مدة العقد','ستكون مدة العقد سنة أو سنتين ميلاديتين اعتمادًا على الخطة التقسيطية، وينتهي العقد بسداد المبالغ المستحقة كاملةً.'],
+    ['6','المعلومات الائتمانية والتأمين المالي','يفوض العميل الشركة بالحصول على ما تحتاجه من معلومات من "سمة". يحق للشركة طلب تأمين مالي وفق وثيقة حماية حقوق مستخدمي الاتصالات.'],
+    ['7','الفواتير والالتزامات المالية','تقوم الشركة بفوترة المبالغ حسب الخطة المرفقة. يتحمل العميل ضريبة القيمة المضافة 15%. يحق للشركة وحدها تعديل الأسعار وإجراء فحص الائتمان.'],
+    ['8','تعطيل الأجهزة','يجوز للشركة تعليق الأجهزة بسبب عدم السداد دون التزام بالتعويض. لا يُعفي التعليق العميلَ من سداد المبالغ المستحقة.'],
+    ['9','حدود المسؤولية','لا تتحمل الشركة مسؤولية فقدان أو تلف الأجهزة الناجم عن سوء استخدام العميل.'],
+    ['10','شروط برنامج الأجهزة','يجب أن يدفع العميل سعر الجهاز بالآلية المتفق عليها. تحتفظ الشركة بحق تقييم الأهلية. الأجهزة مكفولة ضد العيوب لمدة عامين.'],
+    ['11','سياسة الشكاوى والتصعيد','يحق للعميل تقديم شكواه خلال (60) يوماً. يُخطَر بالإجراء خلال (5) أيام عمل. قنوات التواصل: 0576001766 | Business.Sales@lebara.sa'],
+    ['12','تعديل العقد','يحق للشركة تعديل العقد بإخطار العميل قبل (60) يوماً وأخذ موافقته عند الرغبة في الاستمرار.'],
+    ['13','إنهاء العقد','ينتهي العقد بانتهاء مدته المحددة وبسداد جميع المبالغ المستحقة.'],
+    ['14','أحكام عامة','يوافق العميل على شراء الأجهزة بأهليته المعتبرة شرعاً. يخضع العقد لأنظمة المملكة العربية السعودية. تسوية النزاعات ودياً خلال (15) يوماً وإلا تُحال للجهات المختصة في الرياض.'],
+    ['15','شمولية العقد','يُعتبر هذا العقد شاملاً لجميع الشروط المتفق عليها ولا يُعتد بأي عروض شفهية سابقة.'],
+    ['16','قابلية الفصل','كل بند قابل للفصل؛ بطلان أحد البنود لا يؤثر على سريان بقية البنود.'],
+    ['17','تعارض المصالح','يتعهد العميل بتجنب تعارض المصالح وإخطار الشركة فوراً بأية تعديلات مؤثرة.'],
+    ['18','الحماية من انتهاكات العلامة التجارية','يتعهد العميل بتعويض الشركة عن كل خسائر ناجمة عن أي تعدٍّ على حقوق الملكية الفكرية المتعلقة بالأجهزة.'],
+    ['19','نسخ العقد','تم تحرير هذا العقد من نسختين أصليتين يحصل كل طرف على نسخة منها للعمل بموجبها.']
+  ];
+  var html='';
+  for(var i=0;i<en.length;i++){
+    html+='<div class="clause-row">'+
+      '<div class="clause-en"><div class="clause-inner"><span class="clause-num">'+en[i][0]+'</span><div><div class="clause-title">'+en[i][1]+'</div><div class="clause-text">'+he(en[i][2])+'</div></div></div></div>'+
+      '<div class="clause-ar"><div class="clause-inner clause-inner-ar"><span class="clause-num">'+ar[i][0]+'</span><div><div class="clause-title">'+ar[i][1]+'</div><div class="clause-text" style="line-height:1.9;">'+he(ar[i][2])+'</div></div></div></div>'+
+    '</div>';
+  }
+  qs('clausesContainer').innerHTML=html;
+}
+</script>
+</body>
+</html>
